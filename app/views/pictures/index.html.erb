@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Pictures</h1>
+<%= form_tag pictures_path, :method => 'get' do%>
+<p>
+  <%= text_field_tag :tags, params[:tags]%>
+  <%= submit_tag "Search", :name=>nil%>
+</p>
+<% end %>
 
 <table border="1">
   <thead>
