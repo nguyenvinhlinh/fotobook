@@ -3,7 +3,7 @@ class Picture < ActiveRecord::Base
     if term
       find(:all, :condition => ['tags LIKE ? ', "%#{term}%"])
     else
-      find(:all)
+      self.all
     end
     
   end

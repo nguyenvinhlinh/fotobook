@@ -4,7 +4,7 @@ class PicturesController < ApplicationController
   # GET /pictures
   # GET /pictures.json
   def index
-    @pictures = Picture.all
+    @pictures = Picture.search(params[:tags])
   end
   
   # GET /pictures/1
@@ -62,7 +62,7 @@ class PicturesController < ApplicationController
   end
   def search_by_tag
     _tags = ""
-    
+     
   end
   
   private
