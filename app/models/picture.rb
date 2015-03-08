@@ -6,4 +6,5 @@ class Picture < ActiveRecord::Base
       self.all
     end
   end
+  
 end

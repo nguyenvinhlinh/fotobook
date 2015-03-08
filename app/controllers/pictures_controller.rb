@@ -1,10 +1,15 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
-
+  respond_to :html, :json
   # GET /pictures
   # GET /pictures.json
   def index
     @pictures = Picture.search(params[:tags])
+    respond_to do |format|
+      format.html
+      format.json{render json: @pictures}
+    end
+    
   end
   
   # GET /pictures/1
@@ -60,9 +65,16 @@ class PicturesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  def search_by_tag
-    _tags = ""
-     
+  # 
+  def ac_by_tag
+    @pictures = Picture.search(params[:term])
+    _tags = Array.new
+    @pictures.each do |picture|
+      _tags << picture.tags
+    end
+    respond_to do |format|
+      format.json{render json: _tags}
+    end
   end
   
   private
