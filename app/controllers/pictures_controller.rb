@@ -4,7 +4,14 @@ class PicturesController < ApplicationController
   # GET /pictures
   # GET /pictures.json
   def index
-    @pictures = Picture.search(params[:tags])
+    tags_string = params[:tags]
+    #tags_array = tags_string.split(", ")
+    #for tag in tags_array
+    #  puts tag
+    #end
+    
+    
+    @pictures = Picture.search(tags_string)
     respond_to do |format|
       format.html
       format.json{render json: @pictures}
@@ -30,7 +37,6 @@ class PicturesController < ApplicationController
   # POST /pictures.json
   def create
     @picture = Picture.new(picture_params)
-
     respond_to do |format|
       if @picture.save
         format.html { redirect_to @picture, notice: 'Picture was successfully created.' }
