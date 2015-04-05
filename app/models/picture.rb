@@ -1,7 +1,7 @@
 class Picture < ActiveRecord::Base
   ##This function will take a string
   def self.search(term)
-    if term != ""
+    if term != "" && term.nil? == false
       term_array = term.split(",")
       for i in 0...term_array.size
         term_array[i] = term_array[i].strip()
