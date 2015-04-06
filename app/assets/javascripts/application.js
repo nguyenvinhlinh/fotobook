@@ -16,46 +16,4 @@
 //= require jquery-ui.min
 //= require turbolinks
 //= require_tree .
-// $(function() {
-//   function split( val ) {
-// 	return val.split( /,\s*/ );
-//   }
-//   function extractLast( term ) {
-// 	return split( term ).pop();
-//   }
-//   $("#tags").autocomplete({
-// 	source: function(request, response){
-// 	  $.ajax({
-// 		url: "http://localhost:3000/ac_tag",
-// 		dataType: "json",
-// 		data: {
-// 		  term: extractLast(request.term)
-// 		},
-// 		success: function(data){
-// 		  response(data);
-// 		}
-// 	  });
-// 	},
-// 	minLength: 2,
-// 	select: function( event, ui ) {
-// 	  /*log( ui.item ?
-// 		   "Selected: " + ui.item.label :
-// 		   "Nothing selected, input was " + this.value);*/
-	  
-// 	  //alert("abc");
-// 	  //this.value => the text of textfeld, in here, it's #tags
-// 	  var term = split(this.value); // the text of textfield
-// 	  term.pop(); // remove the last element of array
-// 	  term.push(ui.item.value); // add an ele to the array, result of selected text
-// 	  term.push("");
-// 	  this.value = term.join(", ")
-// 	  return false;
-// 	},
-// 	open: function() {
-// 	  $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-// 	},
-// 	close: function() {
-// 	  $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-// 	}
-//   });
-// });
+//= require jquery.turbolinks
