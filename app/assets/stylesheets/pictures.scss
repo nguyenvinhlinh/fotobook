@@ -11,8 +11,9 @@
 
 .item {
  background: rgb(133,199,135);
- background-size: contain;
+ background-size: cover;
  background-position: top center;
  height: 200px;
+ width: 200px;
  position: relative;
 }

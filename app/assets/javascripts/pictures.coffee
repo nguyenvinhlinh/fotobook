@@ -35,9 +35,10 @@ $ ->
 
     wall = new freewall('#container')
     $('.item').each (index) ->
-        w = 200 + 200*Math.random() << 0
+        w = 200 + 50*Math.random()
+        h = 200 + 100*Math.random() 
         $(this).css("width", w)
-        $(this).css("height", 200)
+        $(this).css("height", h)
         $(this).css("background-size", "contain")
         return
     wall.reset
