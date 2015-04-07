@@ -32,15 +32,25 @@ $ ->
         close: ->
           $(this).removeClass('ui-corner-top').addClass 'ui-corner-all'
           return
-    $container = $('#container')
-    $container.masonry
-        columnWidth: 200
-        itemSelector: '.item'
-    $container.imagesLoaded ->
-        $container.masonry()
+
+    wall = new freewall('#container')
+    $('.item').each (index) ->
+        w = 200 + 200*Math.random() << 0
+        $(this).css("width", w)
+        $(this).css("height", 200)
+        $(this).css("background-size", "contain")
         return
-  return
-  
-
-
-  
+    wall.reset
+        fixSize: 0
+        selector: '.item'
+        animate:true
+        cellW: 20
+        cellH: 200
+        onResize: ->
+            wall.fitWidth()
+            return
+    wall.fitWidth()
+    $(window).trigger("resize")
+    
+    
+  return  
