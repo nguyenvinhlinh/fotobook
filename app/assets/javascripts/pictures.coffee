@@ -1,4 +1,4 @@
-$ ->
+$(document).on "page:change", ->
     split = (val) ->
         val.split /,\s*/
 
@@ -52,6 +52,6 @@ $ ->
             return
     wall.fitWidth()
     $(window).trigger("resize")
-    
-    
-  return  
+return
+
+
