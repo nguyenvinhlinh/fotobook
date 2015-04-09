@@ -37,21 +37,29 @@ $(document).on "page:change", ->
     $('.item').each (index) ->
         w = 200 + 50*Math.random()
         h = 200 + 100*Math.random() 
-        $(this).css("width", w)
-        $(this).css("height", h)
+        $(this).css("width", 200)
+        $(this).css("height", 200)
         $(this).css("background-size", "contain")
         return
     wall.reset
         fixSize: 0
         selector: '.item'
         animate:true
-        cellW: 20
+        cellW: 200
         cellH: 200
         onResize: ->
             wall.fitWidth()
             return
     wall.fitWidth()
     $(window).trigger("resize")
+    @mousein = (object) ->
+        $(object).find('.copy_div').css("display", "block")
+        return
+    @mouseout = (object) ->
+        $(object).find('.copy_div').css("display", "none")
+        return
 return
+
+
 
 

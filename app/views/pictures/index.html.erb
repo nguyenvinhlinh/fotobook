@@ -1,11 +1,17 @@
 <div id="container" >
 	<% @pictures.each do |pic| %>
-		<div class="item" style="background: url(<%=pic.url%>) no-repeat;">
+		<div class="item" style="background: url(<%=pic.url%>) no-repeat;"
+	onmouseover="mousein(this);" onmouseout="mouseout(this);">
 			<%#= link_to "Delete", pic, method: "delete" %>
+			<div class="copy_div">
+				<button type="button" class="btn btn-default" aria-label="Left Align">
+					<span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+				</button>
+			</div>
 		</div>
 	<% end %>
 </div>
-<!-- 
+<!--
 <p id="notice"><%= notice %></p>
 <h1>Listing Pictures</h1>
 <%= form_tag pictures_path, :method => 'get' do%>

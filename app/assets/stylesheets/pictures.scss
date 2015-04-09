@@ -10,10 +10,17 @@
 }
 
 .item {
- background: rgb(133,199,135);
- background-size: cover;
- background-position: center center;
+ background: rgb(133,199,135); 
+ // background-position: center center;
  height: 200px;
  width: 200px;
  position: relative;
+
+
+ .copy_div{
+	 positio: absolute;
+	 top:0px;
+	 left:0px;
+	 display:none;
+ }
 }
