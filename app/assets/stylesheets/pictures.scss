@@ -18,8 +18,14 @@
 
 
  .copy_div{
-	 positio: absolute;
+	 position: absolute;
 	 top:0px;
+	 left:0px;
+	 display:none;
+ }
+ .download_div{
+	 position: absolute;
+	 top:33px;
 	 left:0px;
 	 display:none;
  }

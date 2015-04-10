@@ -1,11 +1,16 @@
 <div id="container" >
 	<% @pictures.each do |pic| %>
 		<div class="item" style="background: url(<%=pic.url%>) no-repeat;"
-	onmouseover="mousein(this);" onmouseout="mouseout(this);">
+			onmouseover="mousein(this);" onmouseout="mouseout(this);">
 			<%#= link_to "Delete", pic, method: "delete" %>
 			<div class="copy_div">
 				<button type="button" class="btn btn-default" aria-label="Left Align">
 					<span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+				</button>
+			</div>
+			<div class="download_div">
+				<button type="button" class="btn btn-default" aria-label="Left Align">
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 				</button>
 			</div>
 		</div>

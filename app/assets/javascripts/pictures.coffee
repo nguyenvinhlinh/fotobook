@@ -54,12 +54,18 @@ $(document).on "page:change", ->
     $(window).trigger("resize")
     @mousein = (object) ->
         $(object).find('.copy_div').css("display", "block")
+        $(object).find('.download_div').css("display", "block")
+        image_url = $(object).css('background-image')
+        image_url = image_url.replace('url("', '')
+        image_url = image_url.replace('")', '')
+        
+        $(object).find('.download_div').click ->
+            $(object).find('.download_div').attr
+                target: '_blank'
+                href: image_url
         return
     @mouseout = (object) ->
         $(object).find('.copy_div').css("display", "none")
+        $(object).find('.download_div').css("display", "none")
         return
 return
-
-
-
-
