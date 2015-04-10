@@ -1,12 +1,24 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
-
+  respond_to :html, :json
   # GET /pictures
   # GET /pictures.json
   def index
-    @pictures = Picture.all
+    tags_string = params[:tags]
+    #tags_array = tags_string.split(", ")
+    #for tag in tags_array
+    #  puts tag
+    #end
+    
+    
+    @pictures = Picture.search(tags_string)
+    respond_to do |format|
+      format.html
+      format.json{render json: @pictures}
+    end
+    
   end
-
+  
   # GET /pictures/1
   # GET /pictures/1.json
   def show
@@ -20,12 +32,11 @@ class PicturesController < ApplicationController
   # GET /pictures/1/edit
   def edit
   end
-
+  
   # POST /pictures
   # POST /pictures.json
   def create
     @picture = Picture.new(picture_params)
-
     respond_to do |format|
       if @picture.save
         format.html { redirect_to @picture, notice: 'Picture was successfully created.' }
@@ -60,7 +71,18 @@ class PicturesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  # 
+  def ac_by_tag
+    @pictures = Picture.search(params[:term])
+    _tags = Array.new
+    @pictures.each do |picture|
+      _tags << picture.tags
+    end
+    respond_to do |format|
+      format.json{render json: _tags}
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_picture
