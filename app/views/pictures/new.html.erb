@@ -1,7 +1,9 @@
 <%= form_for @picture, url: {controller: "pictures", action: "create"} do |f|%>
 	<div class="input-group">
 		<span class="input-group-addon" id="basic-addon1">Tags</span>
-		<%= f.text_field :tags, class: "form-control", placeholder: "Tags"%>
+    <%= f.fields_for @tag do |builder|%>
+        <%= builder.text_field :tags, class: "form-control", placeholder: "Tags"%>
+    <% end %>
 	</div>
 
 	<div class="input-group">
