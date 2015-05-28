@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @tag.tags %> 
+</p>
+<%= link_to 'Destroy', {controller: "tags", action: "destroy"}, method: :delete,
+  id:@tag%>

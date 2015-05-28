@@ -38,7 +38,6 @@
 <tbody>
 <% @pictures.each do |picture| %>
 <tr>
-<td><%= picture.tags %></td>
 <td>
 <img src="<%= picture.url%>" alt="" />
 </td>
@@ -53,4 +52,5 @@
 
 <br>
 
-<%= link_to 'New Picture', new_picture_path %> -->
+<%= link_to 'New Picture', new_picture_path %>
+-->

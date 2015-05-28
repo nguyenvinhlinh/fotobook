@@ -1,0 +1,9 @@
+create new
+<%= form_for @tag, url: {controller: "tags", action: "create"} do |f|%>
+	<div class="input-group">
+		<span class="input-group-addon" id="basic-addon1">Tags</span>
+		<%= f.text_field :tags, class: "form-control", placeholder: "Tags"%>
+	</div>
+	<%= f.submit "Create", class: "btn btn-default"%> 
+<% end %>
+

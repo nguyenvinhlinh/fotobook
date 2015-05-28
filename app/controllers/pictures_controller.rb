@@ -4,14 +4,14 @@ class PicturesController < ApplicationController
   # GET /pictures
   # GET /pictures.json
   def index
-    tags_string = params[:tags]
+   # tags_string = params[:tags]
     #tags_array = tags_string.split(", ")
     #for tag in tags_array
     #  puts tag
     #end
     
     
-    @pictures = Picture.search(tags_string)
+    @pictures = Picture.all
     respond_to do |format|
       format.html
       format.json{render json: @pictures}
@@ -72,16 +72,16 @@ class PicturesController < ApplicationController
     end
   end
   # 
-  def ac_by_tag
-    @pictures = Picture.search(params[:term])
-    _tags = Array.new
-    @pictures.each do |picture|
-      _tags << picture.tags
-    end
-    respond_to do |format|
-      format.json{render json: _tags}
-    end
-  end
+  # def ac_by_tag
+  #   @pictures = Picture.search(params[:term])
+  #   _tags = Array.new
+  #   @pictures.each do |picture|
+  #     _tags << picture.tags
+  #   end
+  #   respond_to do |format|
+  #     format.json{render json: _tags}
+  #   end
+  # end
   
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -91,6 +91,6 @@ class PicturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
-      params.require(:picture).permit(:tags, :url)
+      params.require(:picture).permit(:url)
     end
 end
