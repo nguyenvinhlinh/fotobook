@@ -28,7 +28,7 @@ class PicturesController < ApplicationController
   # GET /pictures/new
   def new
     @picture = Picture.new
-    @tag = Tag.new
+    @tags_string = String.new
   end
 
   # GET /pictures/1/edit
@@ -39,19 +39,39 @@ class PicturesController < ApplicationController
   # POST /pictures.json
   def create
     @picture = Picture.new(picture_params)
+    @picture.save
     #create new tag based on the param
-    @tag = Tag.create({:tag => params[:picture][:tag][:tag]})
-    #create record in database pictures_tags
-    puts("#### debug: "+ @tag.id.to_s)
+    @tags_string = params[:tags_string]
+    _tagArray = @tags_string.split(",").map(&:strip)
+    _tagArray.uniq
+    
+    @tags = Array.new
+    for i in 0..._tagArray.size
+      puts ("Index: #{i}, tag: #{_tagArray[i]}")
+      _tag = Tag.find(_tagArray[i])
+      if _tag != nil
+        @tags[i] = _tag
+      else
+        _tag = Tag.new({:tag => _tagArray[i]})
+        _tag.save
+        @tags[i] = _tag
+      end
+      sql_insert_pictures_tags =
+        "INSERT INTO pictures_tags (picture_id, tag_id) VALUES (#{@picture.id}, #{@tags[i].id})"
+      ActiveRecord::Base.connection.execute(sql_insert_pictures_tags)
+    end
+
+    
     
     respond_to do |format|
-      if @picture.save && @tag.save
-        format.html { redirect_to @picture, notice: 'Picture was successfully created.' }
-        format.json { render :show, status: :created, location: @picture }
-      else
-        format.html { render :new }
-        format.json { render json: @picture.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to action: "index" }
+      # if @picture.save
+      #   format.html { redirect_to @picture, notice: 'Picture was successfully created.' }
+      #   format.json { render :show, status: :created, location: @picture }
+      # else
+      #   format.html { render :new }
+      #   format.json { render json: @picture.errors, status: :unprocessable_entity }
+      # end
     end
   end
 
