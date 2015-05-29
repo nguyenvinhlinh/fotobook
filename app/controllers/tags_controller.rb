@@ -29,7 +29,7 @@ class TagsController < ApplicationController
       format.html {redirect_to tags_url, notice: 'tag was successfully destroyed'}
     end
   end
-
+  
   def show
   end
 
@@ -39,6 +39,6 @@ class TagsController < ApplicationController
   end
   
   def tag_params
-    params.require(:tag).permit(:tag, {:picture_id => []})
+    params.require(:tag).permit(:tag, {:picture_ids => []})
   end
 end
