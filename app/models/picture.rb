@@ -1,5 +1,6 @@
 class Picture < ActiveRecord::Base
   has_and_belongs_to_many :tags
+  accepts_nested_attributes_for :tags
   ##This function will take a string
   def self.search(term)
     if term != "" && term.nil? == false

@@ -2,7 +2,8 @@
 	<div class="input-group">
 		<span class="input-group-addon" id="basic-addon1">Tags</span>
     <%= f.fields_for @tag do |builder|%>
-        <%= builder.text_field :tags, class: "form-control", placeholder: "Tags"%>
+        <%= builder.text_field :tag, class: "form-control", placeholder:
+	          "Tags"%>
     <% end %>
 	</div>
 

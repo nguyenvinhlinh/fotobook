@@ -22,11 +22,13 @@ class PicturesController < ApplicationController
   # GET /pictures/1
   # GET /pictures/1.json
   def show
+    
   end
 
   # GET /pictures/new
   def new
     @picture = Picture.new
+    @tag = Tag.new
   end
 
   # GET /pictures/1/edit
@@ -37,8 +39,13 @@ class PicturesController < ApplicationController
   # POST /pictures.json
   def create
     @picture = Picture.new(picture_params)
+    #create new tag based on the param
+    @tag = Tag.create({:tag => params[:picture][:tag][:tag]})
+    #create record in database pictures_tags
+    puts("#### debug: "+ @tag.id.to_s)
+    
     respond_to do |format|
-      if @picture.save
+      if @picture.save && @tag.save
         format.html { redirect_to @picture, notice: 'Picture was successfully created.' }
         format.json { render :show, status: :created, location: @picture }
       else
@@ -91,6 +98,7 @@ class PicturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
-      params.require(:picture).permit(:url)
+#      params.require(:picture).permit(:url, tags_attributes: [:id, :tag])
+      params.require(:picture).permit(:url, {:tag_ids => []})
     end
 end

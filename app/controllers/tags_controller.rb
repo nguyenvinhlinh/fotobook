@@ -3,14 +3,16 @@ class TagsController < ApplicationController
   def new
     @tag = Tag.new
   end
+  
   def create
-    @tag = Tag.new(tag_params)
+    @tag = Tag.new(params(:tag))
     respond_to do |format|
-      if @tag.save
-        format.html { redirect_to @tag, notice: 'Tag was successfully created'}
-      else
-        format.html { render :new}
-      end
+    @tag.save  
+    #   if @tag.save
+    #     format.html { redirect_to @tag, notice: 'Tag was successfully created'}
+    #   else
+    #     format.html { render :new}
+    #   end
     end
   end
 
@@ -34,6 +36,6 @@ class TagsController < ApplicationController
   end
   
   def tag_params
-    params.require(:tag).permit(:tag)
+    params.require(:tag).permit(:tag, {:picture_id => []})
   end
 end
