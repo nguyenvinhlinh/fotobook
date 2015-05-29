@@ -5,17 +5,20 @@ class TagsController < ApplicationController
   end
   
   def create
-    @tag = Tag.new(params(:tag))
+    @tag = Tag.new({:tag =>params[:tag][:tag]})
+    _isSaved = @tag.save 
     respond_to do |format|
-    @tag.save  
-    #   if @tag.save
-    #     format.html { redirect_to @tag, notice: 'Tag was successfully created'}
-    #   else
-    #     format.html { render :new}
-    #   end
-    end
-  end
+      
+      if _isSaved
+        format.html { redirect_to @tag, notice: 'Tag was successfully created'}
+      else
+        format.html { render :new}
+      end
 
+    end
+    
+  end
+  
   def index
     @tags = Tag.all
   end
