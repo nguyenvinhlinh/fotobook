@@ -60,8 +60,6 @@ class PicturesController < ApplicationController
         "INSERT INTO pictures_tags (picture_id, tag_id) VALUES (#{@picture.id}, #{@tags[i].id})"
       ActiveRecord::Base.connection.execute(sql_insert_pictures_tags)
     end
-
-    
     
     respond_to do |format|
       format.html { redirect_to action: "index" }

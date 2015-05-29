@@ -24,6 +24,8 @@ class TagsController < ApplicationController
   end
 
   def destroy
+    sql_delete = "DELETE FROM pictures_tags WHERE id = #{@tag.id}"
+    ActiveRecord::Base.connection.execute(sql_delete)
     @tag.destroy
     respond_to do |format|
       format.html {redirect_to tags_url, notice: 'tag was successfully destroyed'}
