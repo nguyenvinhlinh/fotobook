@@ -21,7 +21,7 @@ $(document).on "page:change", ->
       # the text of textfield
           term.pop()
       # remove the last element of array
-          term.push ui.item.value
+          term.push ui.item.tag
       # add an ele to the array, result of selected text
           term.push ''
           @value = term.join(', ')
