@@ -8,9 +8,7 @@ class PicturesController < ApplicationController
     #tags_array = tags_string.split(", ")
     #for tag in tags_array
     #  puts tag
-    #end
-    
-    
+    #end  
     @pictures = Picture.all
     respond_to do |format|
       format.html
@@ -71,6 +69,10 @@ class PicturesController < ApplicationController
       #   format.json { render json: @picture.errors, status: :unprocessable_entity }
       # end
     end
+  end
+
+  def searchByTag
+    
   end
 
   # PATCH/PUT /pictures/1
