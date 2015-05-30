@@ -46,5 +46,3 @@ group :development, :test do
   gem 'pry-nav'
 end
 
-
-

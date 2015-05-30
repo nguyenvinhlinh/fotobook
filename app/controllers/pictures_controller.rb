@@ -4,17 +4,14 @@ class PicturesController < ApplicationController
   # GET /pictures
   # GET /pictures.json
   def index
-   # tags_string = params[:tags]
-    #tags_array = tags_string.split(", ")
-    #for tag in tags_array
-    #  puts tag
-    #end  
-    @pictures = Picture.all
+    page_number = params[:page]
+    page_number = 1 if page_number == nil
+    
+    @pictures = Picture.page(page_number).per(25)
     respond_to do |format|
       format.html
       format.json{render json: @pictures}
-    end
-    
+    end  
   end
   
   # GET /pictures/1
