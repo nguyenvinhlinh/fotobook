@@ -18,7 +18,7 @@
 </div>
 
 <div class="container">
-    <%= link_to_previous_page @pictures, 'Previous'%>
-    <%= link_to_next_page @pictures, 'Next' %>
+    <%= link_to_previous_page @pictures, 'Previous', :params => {"tags" => @page_tags}%>
+    <%= link_to_next_page @pictures, 'Next', :params => {"tags" => @page_tags} %>
 </div>
 

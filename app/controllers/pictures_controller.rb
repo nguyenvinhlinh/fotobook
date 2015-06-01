@@ -4,10 +4,36 @@ class PicturesController < ApplicationController
   # GET /pictures
   # GET /pictures.json
   def index
+    @page_tags = params[:tags]
     page_number = params[:page]
     page_number = 1 if page_number == nil
-    
-    @pictures = Picture.page(page_number).per(25)
+    if @page_tags == nil
+      @pictures = Picture.page(page_number).per(25) if @page_tags == nil
+    else
+      tag_array = @page_tags.split(",").map(&:strip).uniq
+      tag_array.delete ""
+      sql_query =
+        "SELECT p.id, p.url from pictures p inner join pictures_tags pt on p.id = pt.picture_id  inner join tags t on pt.tag_id = t.id WHERE"
+      for i in 0...tag_array.size
+        if i == 0
+          sql_query += " t.tag LIKE '%#{tag_array[i]}%' "
+        else
+          sql_query += " OR t.tag LIKE '%#{tag_array[i]}%' "
+        end
+      end
+      record_array = ActiveRecord::Base.connection.execute(sql_query)
+
+      @pictures = Array.new
+      for i in 0...record_array.size
+        record_array[i].delete 0
+        record_array[i].delete 1
+        _picture = Picture.new(record_array[i])
+        @pictures << _picture
+      end
+      
+      @pictures  = Kaminari.paginate_array(@pictures).page(params[:page]).per(25)
+      puts "################ #{@page_tags}"
+    end
     respond_to do |format|
       format.html
       format.json{render json: @pictures}
