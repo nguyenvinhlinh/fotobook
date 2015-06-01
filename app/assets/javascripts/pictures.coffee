@@ -5,7 +5,7 @@ $(document).on "page:change", ->
     extractLast = (term) ->
         split(term).pop()
 
-    $('#tags').autocomplete
+    $('#tags').autocomplete(
         source: (request, response) ->
           $.ajax
             url: 'http://localhost:3000/ac_tag'
@@ -21,7 +21,7 @@ $(document).on "page:change", ->
       # the text of textfield
           term.pop()
       # remove the last element of array
-          term.push ui.item.value
+          term.push ui.item.tag
       # add an ele to the array, result of selected text
           term.push ''
           @value = term.join(', ')
@@ -32,7 +32,9 @@ $(document).on "page:change", ->
         close: ->
           $(this).removeClass('ui-corner-top').addClass 'ui-corner-all'
           return
-
+    ).data('ui-autocomplete')._renderItem = (ul,item) ->
+      $('<li></li>').data('item.autocomplete', item).append(item.tag).appendTo(ul)
+    
     wall = new freewall('#container')
     $('.item').each (index) ->
         w = 200 + 50*Math.random()

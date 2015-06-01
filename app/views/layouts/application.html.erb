@@ -29,7 +29,13 @@
 							<li><a href="#">About</a></li>
 							<form class="navbar-form navbar-left" role="search" method="get" action="/pictures" accept-charset="UTF-8">
 								<div class="form-group">
-									<input id="tags" name="tags" type="text" class="form-control" placeholder="Search">
+                  <% if @page_tags == nil %>
+                      <input id="tags" name="tags" type="text"
+                      class="form-control" placeholder="Search">
+                  <% else %>
+                      <input id="tags" name="tags" type="text" class="form-control"
+                             value="<%= @page_tags %>" placeholder="Search">
+                  <% end %>
 								</div>
 								<button type="submit" class="btn btn-default">Search</button>
 							</form>
@@ -39,11 +45,7 @@
 					</div>
 				</div>
 			</nav>
-
 			<%= yield%>
 		</div>
-
-
-
 	</body>
 </html>
