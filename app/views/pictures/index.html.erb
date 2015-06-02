@@ -21,10 +21,8 @@
     <div class="photoset-grid-lightbox" data-layout="2331"
          style="visibility:hidden;" >
         <% @pictures.each do |f| %>
-            <a href="<%= f.url%>">
-                <img src="<%= f.url%>" rel="pictures"/>
-            </a>
-        <% end  %>
+            <img src="<%= f.url%>" data-highres="<%=f.url%>"/>
+        <% end %>
     </div>
     
 </div>

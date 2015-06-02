@@ -38,7 +38,7 @@ $(document).on "page:change", ->
     $('.photoset-grid-lightbox').photosetGrid
       gutter: '2px'
       rel: 'pictures'
-      highresLink: false
+      highresLinks: true
       onComplete: ->
         $('.photoset-grid-lightbox').attr('style', '')
         $('.photoset-grid-lightbox a').colorbox
@@ -46,5 +46,5 @@ $(document).on "page:change", ->
           scalePhotos: true
           maxHeight: '90%'
           maxWidth: '90%'
-        return  
+        return
 return
