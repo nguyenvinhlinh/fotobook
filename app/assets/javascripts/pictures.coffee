@@ -34,7 +34,7 @@ $(document).on "page:change", ->
           return
     ).data('ui-autocomplete')._renderItem = (ul,item) ->
       $('<li></li>').data('item.autocomplete', item).append(item.tag).appendTo(ul)
-
+    
     $('.photoset-grid-lightbox').photosetGrid
       gutter: '2px'
       rel: 'pictures'
@@ -47,4 +47,5 @@ $(document).on "page:change", ->
           maxHeight: '90%'
           maxWidth: '90%'
         return
+    return
 return
