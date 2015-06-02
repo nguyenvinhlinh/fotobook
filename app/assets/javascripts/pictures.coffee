@@ -34,7 +34,7 @@ $(document).on "page:change", ->
           return
     ).data('ui-autocomplete')._renderItem = (ul,item) ->
       $('<li></li>').data('item.autocomplete', item).append(item.tag).appendTo(ul)
-    
+    $.colorbox.remove()  
     $('.photoset-grid-lightbox').photosetGrid
       gutter: '2px'
       rel: 'pictures'
