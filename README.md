@@ -17,3 +17,4 @@
 - allow copy and download image
 - autocomplete in new-picture for tags
 - beautify the tag, it should look like real tags, not simple text
+- beautify paging button
