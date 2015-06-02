@@ -13,10 +13,7 @@
 - JQuery
 
 ## To-do list ##
-
-
-
-
-
-
-
+- change the UI, not using freewall.js
+- allow copy and download image
+- autocomplete in new-picture for tags
+- beautify the tag, it should look like real tags, not simple text
