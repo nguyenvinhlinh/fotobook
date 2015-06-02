@@ -11,3 +11,12 @@
 - Using Rails 4
 - Bootstrap
 - JQuery
+
+## To-do list ##
+
+
+
+
+
+
+
