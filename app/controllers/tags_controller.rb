@@ -31,7 +31,6 @@ class TagsController < ApplicationController
       format.html {redirect_to tags_url, notice: 'tag was successfully destroyed'}
     end
   end
-
   def ac_by_tag
     _term = params[:term].strip
     sql = "SELECT * FROM tags WHERE tag LIKE '%#{_term}%'"
@@ -44,6 +43,7 @@ class TagsController < ApplicationController
       f.json {render :json => @tags.to_json(:only => ["tag"])  }
     end
   end
+
   
   def show
   end
