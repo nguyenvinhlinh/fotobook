@@ -1,24 +1,13 @@
 <p id="notice"><%= notice %></p>
 <div id="container" >
-	<% @pictures.each do |pic| %>
-		<div class="item" style="background: url(<%=pic.url%>) no-repeat;"
-			onmouseover="mousein(this);" onmouseout="mouseout(this);">
-			<div class="copy_div">
-				<button type="button" class="btn btn-default" aria-label="Left Align">
-					<span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-				</button>
-			</div>
-			<div class="download_div">
-				<button type="button" class="btn btn-default" aria-label="Left Align">
-					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-				</button>
-			</div>
-		</div>
-	<% end %>
+    <div class="photoset-grid-lightbox" data-layout="2331"
+         style="visibility:hidden;" >
+        <% @pictures.each do |f| %>
+            <img src="<%= f.url%>" data-highres="<% f.url %>"/>
+        <% end %>
+    </div>
 </div>
-
 <div class="container">
     <%= link_to_previous_page @pictures, 'Previous', :params => {"tags" => @page_tags}%>
     <%= link_to_next_page @pictures, 'Next', :params => {"tags" => @page_tags} %>
 </div>
-
