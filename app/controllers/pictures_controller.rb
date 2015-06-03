@@ -65,7 +65,9 @@ class PicturesController < ApplicationController
     @tags_string = params[:tags_string]
     _tagArray = @tags_string.split(",").map(&:strip)
     _tagArray.uniq
+    _tagArray.delete ""
     
+
     @tags = Array.new
     for i in 0..._tagArray.size
       puts ("Index: #{i}, tag: #{_tagArray[i]}")
