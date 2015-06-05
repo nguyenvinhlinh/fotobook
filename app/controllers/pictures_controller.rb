@@ -32,7 +32,6 @@ class PicturesController < ApplicationController
       end
       
       @pictures  = Kaminari.paginate_array(@pictures).page(params[:page]).per(25)
-      puts "################ #{@page_tags}"
     end
     respond_to do |format|
       format.html
@@ -86,13 +85,6 @@ class PicturesController < ApplicationController
     
     respond_to do |format|
       format.html { redirect_to action: "index" }
-      # if @picture.save
-      #   format.html { redirect_to @picture, notice: 'Picture was successfully created.' }
-      #   format.json { render :show, status: :created, location: @picture }
-      # else
-      #   format.html { render :new }
-      #   format.json { render json: @picture.errors, status: :unprocessable_entity }
-      # end
     end
   end
 
@@ -123,17 +115,6 @@ class PicturesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  # 
-  # def ac_by_tag
-  #   @pictures = Picture.search(params[:term])
-  #   _tags = Array.new
-  #   @pictures.each do |picture|
-  #     _tags << picture.tags
-  #   end
-  #   respond_to do |format|
-  #     format.json{render json: _tags}
-  #   end
-  # end
   
   private
     # Use callbacks to share common setup or constraints between actions.
