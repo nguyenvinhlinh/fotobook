@@ -1057,7 +1057,8 @@
 		}
 	};
   publicMethod.info = function(){
-    alert ("Line: 1060: .info functionality here. "+ $related[index].getAttribute("hrefTo"));
+    url = $related[index].children[0].getAttribute("hrefto");
+    window.location.href = url
   };
 
 	// Note: to use this within an iframe use the following format: parent.jQuery.colorbox.close();
