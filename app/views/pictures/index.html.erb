@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-<div id="container" >
+<div class="container" >
     <div class="photoset-grid-lightbox" data-layout="2331"
          style="visibility:hidden;" >
         <% @pictures.each do |f| %>
@@ -8,6 +8,6 @@
     </div>
 </div>
 <div class="container">
-    <%= link_to_previous_page @pictures, 'Previous', :params => {"tags" => @page_tags}%>
-    <%= link_to_next_page @pictures, 'Next', :params => {"tags" => @page_tags} %>
+    <%= link_to_previous_page @pictures, 'Previous', :params =>{"tags"=>@page_tags},class: "btn btn-primary btn-lg active"%>
+    <%= link_to_next_page @pictures, 'Next', :params => {"tags" => @page_tags},class: "btn btn-primary btn-lg active" %>
 </div>

@@ -12,6 +12,10 @@
 - Bootstrap
 - JQuery
 
+## Library using 
+- Photoset-grid [link](https://github.com/stylehatch/photoset-grid/)
+- Color-box [link](https://github.com/jackmoore/colorbox/)
+
 ## To-do list ##
 - change the UI, not using freewall.js
 - allow copy and download image
