@@ -2,11 +2,13 @@
 <p>
     <strong>Tags:</strong>
     <% for counter in 0...@picture.tags.size %>
-        <% if counter == @picture.tags.size - 1 %>
-            <%= @picture.tags[counter].tag %>
-        <% else %>
-            <%= @picture.tags[counter].tag %>, 
-        <% end%>
+        <a href="/tags/<%=@picture.tags[counter].id %>">
+            <% if counter == @picture.tags.size - 1 %>
+                <%= @picture.tags[counter].tag %>
+            <% else %>
+                <%= @picture.tags[counter].tag %>, 
+            <% end%>
+        </a>
     <% end  %>
 </p>
 
