@@ -43,9 +43,6 @@ class PicturesController < ApplicationController
   # GET /pictures/1.json
   def show
     @picture = Picture.includes(:tags).find(params[:id])
-    @picture.tags.each do |f|
-      puts "################# #{f}"
-    end
   end
 
   # GET /pictures/new

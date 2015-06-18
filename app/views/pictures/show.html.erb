@@ -2,7 +2,7 @@
 <p>
     <strong>Tags:</strong>
     <% for counter in 0...@picture.tags.size %>
-        <a href="/tags/<%=@picture.tags[counter].id %>">
+        <a href="/tags/<%=@picture.tags[counter].tag %>">
             <% if counter == @picture.tags.size - 1 %>
                 <%= @picture.tags[counter].tag %>
             <% else %>

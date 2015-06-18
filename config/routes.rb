@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :pictures, :tags
+  resources :pictures
+  resources :tags, param: :tag_name
   root "pictures#index"
   get '/ac_tag', to: 'tags#ac_by_tag'
   # The priority is based upon order of creation: first created -> highest priority.
