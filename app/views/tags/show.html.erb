@@ -5,7 +5,7 @@
   <%= @tag.tag %>
 
   <% @tag.pictures.each do |f| %>
-      <img class="img-responsive" src="<%= f.url%>" />r
+      <img class="img-responsive" src="<%= f.url%>" />
   <% end %>
 </p>
 <%= link_to 'Destroy', {controller: "tags", action: "destroy"}, method: :delete,

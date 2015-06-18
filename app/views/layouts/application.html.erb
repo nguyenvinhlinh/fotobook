@@ -26,8 +26,7 @@
 							<li><%= link_to "Pictures", controller: "pictures", action:
                   "index"  %></li>
 							<li><%= link_to "Add New Picture", controller: "pictures", action: "new"%></li>
-							<!-- <li><a href="#">Tags</a></li> -->
-							<!-- <li><a href="#">My Pictures</a></li> -->
+							<li><%= link_to "Tags", controller: "tags", action: "index"%></li>
 							<li><a href="#">About</a></li>
 							<form class="navbar-form navbar-left" role="search" method="get" action="/pictures" accept-charset="UTF-8">
 								<div class="form-group">
@@ -41,7 +40,6 @@
 								</div>
 								<button type="submit" class="btn btn-default">Search</button>
 							</form>
-							<!-- <li><a href="#">Login</a></li> -->
 							
 						</ul>
 					</div>
