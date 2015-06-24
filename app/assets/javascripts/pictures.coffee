@@ -4,7 +4,7 @@ $(document).on "page:change", ->
 
     extractLast = (term) ->
         split(term).pop()
-    
+        
     $('#tags').autocomplete(
         source: (request, response) ->
           $.ajax
@@ -68,12 +68,13 @@ $(document).on "page:change", ->
       ).data('ui-autocomplete')._renderItem = (ul,item) ->
           $('<li></li>').data('item.autocomplete', item).append(item.tag).appendTo(ul)
 
-    $.colorbox.remove()  
+    $.colorbox.remove()
     $('.photoset-grid-lightbox').photosetGrid
       gutter: '2px'
       rel: 'pictures'
       highresLinks: true
       onComplete: ->
+        alert "finished"
         $('.photoset-grid-lightbox').attr('style', '')
         $('.photoset-grid-lightbox a').colorbox
           photo:true
@@ -83,4 +84,3 @@ $(document).on "page:change", ->
         return
     return
 return
-
