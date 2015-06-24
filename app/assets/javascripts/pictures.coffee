@@ -73,7 +73,7 @@ $(document).on "page:change", ->
       gutter: '2px'
       rel: 'pictures'
       highresLinks: true
-      onComplete: ->
+      onComplete: ->  
         $('.photoset-grid-lightbox').attr('style', '')
         $('.photoset-grid-lightbox a').colorbox
           photo:true
