@@ -74,7 +74,6 @@ $(document).on "page:change", ->
       rel: 'pictures'
       highresLinks: true
       onComplete: ->
-        alert "finished"
         $('.photoset-grid-lightbox').attr('style', '')
         $('.photoset-grid-lightbox a').colorbox
           photo:true

@@ -1,4 +1,5 @@
 //= require jquery
+//= require turbolinks
 //= require bootstrap.min
 //= require jquery.photoset-grid
 //= require jquery.colorbox
