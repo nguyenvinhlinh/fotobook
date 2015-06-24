@@ -87,11 +87,6 @@ class PicturesController < ApplicationController
       format.html { redirect_to action: "index" }
     end
   end
-
-  def searchByTag
-    
-  end
-
   # PATCH/PUT /pictures/1
   # PATCH/PUT /pictures/1.json
   def update
