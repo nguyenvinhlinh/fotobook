@@ -1,11 +1,16 @@
 <p id="notice"><%= notice %></p>
 <div class="container" >
-    <div class="photoset-grid-lightbox" data-layout="3213"
+    <div class="photoset-grid-lightbox" data-layout="3323"
          style="visibility:hidden;" >
         <% @pictures.each do |f| %>
-
-            <img src="/assets/loading.jpeg" atl-data="<%= f.url %>"
-                 hrefto="/pictures/<%= f.id %>" />
+            <% if true  %>
+                <% if f.url[-4..-1] == '.gif' %>
+                    <img src="/assets/loading.jpeg"  hrefto="/pictures/<%= f.id %>" static="false" />
+                <% else %>
+                    <img src="<%= f.url %>"  hrefto="/pictures/<%= f.id %>" static="true" />
+                <% end %>
+            <% end %>
+            
         <% end %>
     </div>
 </div>
