@@ -17,7 +17,7 @@
  */
 //= require bootstrap.min
 //= require bootstrap-theme.min
-//= colorbox
-//= jquery-ui
-//= jquery-ui.structure.min
-//= jquery-ui.theme.min
+//= require colorbox
+//= require jquery-ui
+//= require jquery-ui.structure.min
+//= require jquery-ui.theme.min

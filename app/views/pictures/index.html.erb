@@ -3,7 +3,9 @@
     <div class="photoset-grid-lightbox" data-layout="3213"
          style="visibility:hidden;" >
         <% @pictures.each do |f| %>
-            <img src="/assets/loading.jpeg" atl-data="<%= f.url %>" hrefto="/pictures/<%= f.id %>"/>
+
+            <img src="/assets/loading.jpeg" atl-data="<%= f.url %>"
+                 hrefto="/pictures/<%= f.id %>" />
         <% end %>
     </div>
 </div>
