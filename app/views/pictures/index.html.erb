@@ -3,9 +3,9 @@
         <% @pictures.each do |f| %>
             <% if true  %>
                 <% if f.url[-4..-1] == '.gif' %>
-                    <img src="/assets/loading.jpeg"  hrefto="/pictures/<%= f.id %>" static="false" gif-source="<%= f.url %>" data-source="<%= f.url %>"/>
+                    <img src="/assets/loading.jpeg"  hrefto="/pictures/<%= f.id %>" static="false" gif-source="<%= f.url %>" data-source="<%= f.url %>" rel="pictures"/>
                 <% else %>
-                    <img src="<%= f.url %>"  hrefto="/pictures/<%= f.id %>" static="true" data-source="<%= f.url %>" />
+                    <img src="<%= f.url %>"  hrefto="/pictures/<%= f.id %>" static="true" data-source="<%= f.url %>" rel="pictures"/>
                 <% end %>
             <% end %>
             
