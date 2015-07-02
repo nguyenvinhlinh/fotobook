@@ -81,9 +81,5 @@ $(document).on "page:change", ->
           maxHeight: '90%'
           maxWidth: '90%'
         return
-    return
-
-    
-
-    
+    return    
 return
