@@ -1,13 +1,37 @@
-<p id="notice"><%= notice %></p>
-<div id="container" >
-    <div class="photoset-grid-lightbox" data-layout="2331"
-         style="visibility:hidden;" >
+<div class="container" >
+    <div class="photoset-grid-lightbox" data-layout="3323" style="visibility:hidden;">
         <% @pictures.each do |f| %>
-            <img src="<%= f.url%>" data-highres="<% f.url %>"/>
+            <% if true  %>
+                <% if f.url[-4..-1] == '.gif' %>
+                    <img src="/assets/loading.jpeg"  hrefto="/pictures/<%= f.id %>" static="false" gif-source="<%= f.url %>" />
+                <% else %>
+                    <img src="<%= f.url %>"  hrefto="/pictures/<%= f.id %>" static="true" />
+                <% end %>
+            <% end %>
+            
         <% end %>
     </div>
 </div>
 <div class="container">
-    <%= link_to_previous_page @pictures, 'Previous', :params => {"tags" => @page_tags}%>
-    <%= link_to_next_page @pictures, 'Next', :params => {"tags" => @page_tags} %>
+    <%= link_to_previous_page @pictures, 'Previous', :params =>{"tags"=>@page_tags},class: "btn btn-primary btn-lg active"%>
+    <%= link_to_next_page @pictures, 'Next', :params => {"tags" => @page_tags},class: "btn btn-primary btn-lg active" %>
 </div>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+     imgDomArray = [];
+     imgURLDomArray = [];
+     $("img[static$='false']").each(function(){
+         imgDomArray.push($(this));
+         imgURLDomArray.push($(this).attr("gif-source"));
+     });
+     images = [];
+     $.each(imgDomArray, function(index){
+         images[index] = new Image();
+         images[index].src = imgURLDomArray[index];
+         images[index].onload = function(){
+             imgDomArray[index].attr("src", imgURLDomArray[index] );
+         };
+     });
+ });
+</script>

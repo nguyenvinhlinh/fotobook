@@ -1,13 +1,19 @@
 <p id="notice"><%= notice %></p>
-
 <p>
-  <strong>Tags:</strong>
-  <%= @picture.tags %>
+    <strong>Tags:</strong>
+    <% for counter in 0...@picture.tags.size %>
+        <a href="/tags/<%=@picture.tags[counter].tag %>">
+            <% if counter == @picture.tags.size - 1 %>
+                <%= @picture.tags[counter].tag %>
+            <% else %>
+                <%= @picture.tags[counter].tag %>, 
+            <% end%>
+        </a>
+    <% end  %>
 </p>
 
 <p>
-  <strong>Url:</strong>
-  <%= @picture.url %>
+  <img class="img-responsive"src="<%= @picture.url %>"/>
 </p>
 
 <%= link_to 'Edit', edit_picture_path(@picture) %> |

@@ -62,6 +62,7 @@
 		previous: "previous",
 		next: "next",
 		close: "close",
+    info: "info",
 		xhrError: "This content failed to load.",
 		imgError: "This image failed to load.",
 
@@ -153,6 +154,7 @@
 	$slideshow,
 	$next,
 	$prev,
+  $info,
 	$close,
 	$groupControls,
 	$events = $('<a/>'), // $({}) would be prefered, but there is an issue with jQuery 1.4.2
@@ -484,6 +486,7 @@
 				$current = $tag(div, "Current"),
 				$prev = $('<button type="button"/>').attr({id:prefix+'Previous'}),
 				$next = $('<button type="button"/>').attr({id:prefix+'Next'}),
+        $info = $('<button type="button"/>').attr({id:prefix+'Info'}),
 				$slideshow = $tag('button', "Slideshow"),
 				$loadingOverlay
 			);
@@ -539,6 +542,9 @@
 				$prev.click(function () {
 					publicMethod.prev();
 				});
+        $info.click(function (){
+          publicMethod.info();
+        });
 				$close.click(function () {
 					publicMethod.close();
 				});
@@ -1050,6 +1056,10 @@
 			launch($related[index]);
 		}
 	};
+  publicMethod.info = function(){
+    url = $related[index].children[0].getAttribute("hrefto");
+    window.location.href = url
+  };
 
 	// Note: to use this within an iframe use the following format: parent.jQuery.colorbox.close();
 	publicMethod.close = function () {

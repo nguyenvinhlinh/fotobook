@@ -4,7 +4,7 @@ $(document).on "page:change", ->
 
     extractLast = (term) ->
         split(term).pop()
-    
+        
     $('#tags').autocomplete(
         source: (request, response) ->
           $.ajax
@@ -68,7 +68,7 @@ $(document).on "page:change", ->
       ).data('ui-autocomplete')._renderItem = (ul,item) ->
           $('<li></li>').data('item.autocomplete', item).append(item.tag).appendTo(ul)
 
-    $.colorbox.remove()  
+    $.colorbox.remove()
     $('.photoset-grid-lightbox').photosetGrid
       gutter: '2px'
       rel: 'pictures'
@@ -82,5 +82,8 @@ $(document).on "page:change", ->
           maxWidth: '90%'
         return
     return
-return
 
+    
+
+    
+return

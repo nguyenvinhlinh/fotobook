@@ -46,11 +46,12 @@ class TagsController < ApplicationController
 
   
   def show
+    @tag = Tag.includes(:pictures).find_by(tag:  params[:tag_name])
   end
 
   private
   def set_tag
-    @tag = Tag.find(params[:id])
+    @tag = Tag.find(params[:tag_name])
   end
   
   def tag_params

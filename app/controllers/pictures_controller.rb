@@ -8,7 +8,7 @@ class PicturesController < ApplicationController
     page_number = params[:page]
     page_number = 1 if page_number == nil
     if @page_tags == nil || @page_tags == ""
-      @pictures = Picture.page(page_number).per(25)
+      @pictures = Picture.page(page_number).per(11)
     else
       tag_array = @page_tags.split(",").map(&:strip).uniq
       tag_array.delete ""
@@ -42,7 +42,7 @@ class PicturesController < ApplicationController
   # GET /pictures/1
   # GET /pictures/1.json
   def show
-    
+    @picture = Picture.includes(:tags).find(params[:id])
   end
 
   # GET /pictures/new
@@ -87,11 +87,6 @@ class PicturesController < ApplicationController
       format.html { redirect_to action: "index" }
     end
   end
-
-  def searchByTag
-    
-  end
-
   # PATCH/PUT /pictures/1
   # PATCH/PUT /pictures/1.json
   def update
