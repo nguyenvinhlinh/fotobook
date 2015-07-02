@@ -21,13 +21,17 @@
  $(document).ready(function(){
      imgDomArray = [];
      imgURLDomArray = [];
-     a = $("img[static$='false']").length;
      $("img[static$='false']").each(function(){
          imgDomArray.push($(this));
          imgURLDomArray.push($(this).attr("gif-source"));
      });
-
-     
-     
+     images = [];
+     $.each(imgDomArray, function(index){
+         images[index] = new Image();
+         images[index].src = imgURLDomArray[index];
+         images[index].onload = function(){
+             imgDomArray[index].attr("src", imgURLDomArray[index] );
+         };
+     });
  });
 </script>
