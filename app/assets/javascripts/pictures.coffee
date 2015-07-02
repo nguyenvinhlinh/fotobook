@@ -75,15 +75,13 @@ $(document).on "page:change", ->
       highresLinks: true
       onComplete: ->
         $('.photoset-grid-lightbox').attr('style', '')
-        $('.photoset-grid-lightbox a').colorbox
+        $('.photoset-grid-lightbox img').colorbox
+          href: ->
+            return $(this).data('source')
           photo:true
           scalePhotos: true
           maxHeight: '90%'
           maxWidth: '90%'
         return
-    return
-
-    
-
-    
+    return    
 return
