@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  allow_cors :ac_by_tag
   before_action :set_tag, only: [:show, :destroy ]
   def new
     @tag = Tag.new
@@ -14,9 +15,7 @@ class TagsController < ApplicationController
       else
         format.html { render :new}
       end
-
     end
-    
   end
   
   def index
