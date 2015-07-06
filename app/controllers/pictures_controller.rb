@@ -9,6 +9,7 @@ class PicturesController < ApplicationController
     page_number = 1 if page_number == nil
     if @page_tags == nil || @page_tags == ""
       @pictures = Picture.page(page_number).per(11)
+      
     else
       tag_array = @page_tags.split(",").map(&:strip).uniq
       tag_array.delete ""
