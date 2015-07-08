@@ -10,6 +10,7 @@ class PicturesController < ApplicationController
     if @page_tags == nil || @page_tags == ""
       @pictures = Picture.all.reverse
       @pictures = Kaminari.paginate_array(@pictures).page(page_number).per(11)
+
     else
       tag_array = @page_tags.split(",").map(&:strip).uniq
       tag_array.delete ""
@@ -67,10 +68,9 @@ class PicturesController < ApplicationController
     _tagArray.uniq
     _tagArray.delete ""
     
-
+    
     @tags = Array.new
     for i in 0..._tagArray.size
-      puts ("Index: #{i}, tag: #{_tagArray[i]}")
       _tag = Tag.find(_tagArray[i])
       if _tag != nil
         @tags[i] = _tag

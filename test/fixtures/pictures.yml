@@ -1,9 +1,19 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+picture1:
+  url: "http://i.telegraph.co.uk/multimedia/archive/02465/arpita_patra_2465947k.jpg"
+  tags: tag1, tag2
 
-one:
-  tags: 
-  url: MyString
+picture2:
+  url: "http://i.telegraph.co.uk/multimedia/archive/02465/arpita_patra_2465947k.jpg"
+  tags: tag2, tag3
 
-two:
-  tags: 
-  url: MyString
+picture3:
+  url: "http://i.telegraph.co.uk/multimedia/archive/02465/adrian-metzelaar_2465950k.jpg"
+  tags: tag1, tag3
+
+picture4:
+  url: "http://i.telegraph.co.uk/multimedia/archive/02465/sarah_gillam_2465951k.jpg"
+  tags: tag2, tag3
+
+picture5:
+  url: "http://i.telegraph.co.uk/multimedia/archive/02465/mark-coleman_2465953k.jpg"
+  tags: tag3, tag1
