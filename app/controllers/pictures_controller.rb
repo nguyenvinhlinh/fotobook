@@ -67,10 +67,9 @@ class PicturesController < ApplicationController
     _tagArray.uniq
     _tagArray.delete ""
     
-
+    
     @tags = Array.new
     for i in 0..._tagArray.size
-      puts ("Index: #{i}, tag: #{_tagArray[i]}")
       _tag = Tag.find(_tagArray[i])
       if _tag != nil
         @tags[i] = _tag

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PicturesControllerTest < ActionController::TestCase
   setup do
-    @picture = pictures(:one)
+    @picture = pictures(:picture1)
   end
 
   test "should get index" do
@@ -18,10 +18,10 @@ class PicturesControllerTest < ActionController::TestCase
 
   test "should create picture" do
     assert_difference('Picture.count') do
-      post :create, picture: { tags: @picture.tags, url: @picture.url }
+      post :create, picture: {url: @picture.url}, tags_string: "boy, girl, world"
     end
-
-    assert_redirected_to picture_path(assigns(:picture))
+    
+    assert_redirected_to pictures_path
   end
 
   test "should show picture" do
