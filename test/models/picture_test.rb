@@ -1,24 +1,16 @@
 require 'test_helper'
 
 class PictureTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
   def setup
     @picture = Picture.new
     @picture.url =
       "http://img2.wikia.nocookie.net/__cb20150203214239/naruto/images/8/88/Naruto_Exhibition_characters.png"
-    @picture.save
-
-    
+    @picture.save  
   end
 
   def teardown
     @picture = nil
   end
-  
-  
-  
   
   test "create_empty_picture" do
     picture = Picture.new
@@ -59,10 +51,7 @@ class PictureTest < ActiveSupport::TestCase
     picture = Picture.first
     id = picture.id
     picture.destroy
-    picture.save
-    result = Picture.where(id: id)
-    assert_not result
+    object = Picture.find_by(id: id)
+    assert_not object
   end
-
-
 end
