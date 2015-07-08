@@ -20,7 +20,6 @@ class PicturesControllerTest < ActionController::TestCase
     assert_difference('Picture.count') do
       post :create, picture: {url: @picture.url}, tags_string: "boy, girl, world"
     end
-    
     assert_redirected_to pictures_path
   end
 
