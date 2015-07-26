@@ -1,25 +1,33 @@
-<%= form_for @picture, url: {controller: "pictures", action: "create"} do |f|%>
-    <div class="row">
-        <div class="col-lg-6">
+<div class="col-md-12">
+    <div class="col-md-6">
+        <%= form_for @picture, url: {controller: "pictures", action: "create"} do |f|%>
             <div class="input-group input-group-lg">
-		            <span class="input-group-addon" id="basic-addon1">Url</span>
-		            <%= f.text_field :url, class: "form-control", placeholder: "Paste image url here or upload"%>
-                <span class="input-group-btn input-group-lg">
-                    <button class="btn btn-default" type="button">Upload</button>
-                </span>
-	          </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6">
+		            <span class="input-group-addon">Url</span>
+		            <%= f.text_field :url, class: "form-control", placeholder: "Paste image url here",
+                    id: "img-url"%>
+	          </div>            
+            <br/>
             <div class="input-group input-group-lg">
-		            <span class="input-group-addon" id="basic-addon1">Tags</span>
+		            <span class="input-group-addon">Tags</span>
                 <%= text_field_tag :tags_string,nil, class: "form-control", id: "tags2", placeholder: "Tags"%>
-                <span class="input-group-btn input-group-lg">
-                    	  <%= f.submit "Create", class: "btn btn-default", type: "button"%> 
-                </span>
-	          </div>        
-        </div>
+	          </div>
+            <br/>
+            <%= f.submit "Create", class: "btn btn-default", type: "button"%>
+        <% end %>
     </div>
-    <%= f.submit "Create", class: "btn btn-default", type: "button"%> 
-<% end %>
+    <div class="col-md-6">
+        <img src="/assets/noimage.jpg" id="img-preview" />
+    </div>
+</div>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+     if($("#img-url").val() != ""){
+         $("#img-preview").attr("src", $("#img-url").val());
+     }
+     $("#img-url").bind("keyup", function(){
+         console.log("change");
+         $("#img-preview").attr("src", $("#img-url").val());
+     });
+ });
+</script>
