@@ -27,11 +27,21 @@
 <script type="text/javascript">
  $(document).ready(function(){
      //Handling the button click to choose file
+     var file = null;
      $("#browse_button").click(function(){
          $("#file").click();
      });
+     function validateImageFile(){
+         if(file.length > 7000000){
+             return false;
+         }
+         if((file.name.endsWith(".png") || file.name.endsWith(".jpg")) == false){
+             return false;
+         }
+         return true;
+     }
      function handleFileChooser(evt){
-         var file = evt.target.files[0];
+         file = evt.target.files[0];
          $("#file_name").val(file.name);
          var filereader = new FileReader();
          filereader.readAsDataURL(file);
@@ -39,7 +49,9 @@
              $("#img_preview").attr("src", filereader.result);
          };
      }
-     
+     function uploadToImgr(){
+         
+     }
      $("#file").change(handleFileChooser);
 
      
