@@ -3,13 +3,13 @@
         <%= form_for @picture, url: {controller: "pictures", action: "create"} do |f|%>
             <div class="input-group input-group-lg">
 		            <span class="input-group-addon">File</span>
-		            <%= f.text_field :url, class: "form-control", placeholder: "Paste image url here",id: "img-url"%>
+		            <%= f.text_field :url, class: "form-control", placeholder: "File name",id: "file_name"%>
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button" id="browse_button">Browse</button>
                 </span>
 	          </div>
 
-            <input type="file" id="file" style="display:none;"> </input>
+            <input type="file" id="file" style="display:none;" > </input>
             
             <br/>
             <div class="input-group input-group-lg">
@@ -21,13 +21,28 @@
         <button class="btn btn-default" type="button">UPLOAD</button>
     </div>
     <div class="col-md-6">
-        <img src="/assets/noimage.jpg" id="img-preview" style="width: 80%;"/>
+        <img src="/assets/noimage.jpg" id="img_preview" style="width: 80%;"/>
     </div>
 </div>
 <script type="text/javascript">
  $(document).ready(function(){
+     //Handling the button click to choose file
      $("#browse_button").click(function(){
          $("#file").click();
      });
+     function handleFileChooser(evt){
+         var file = evt.target.files[0];
+         $("#file_name").val(file.name);
+         var filereader = new FileReader();
+         filereader.readAsDataURL(file);
+         filereader.onloadend = function(){
+             $("#img_preview").attr("src", filereader.result);
+         };
+     }
+     
+     $("#file").change(handleFileChooser);
+
+     
+     
  });
 </script>
