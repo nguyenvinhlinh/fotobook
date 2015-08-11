@@ -53,6 +53,11 @@ class PicturesController < ApplicationController
     @tags_string = String.new
   end
 
+  def upload
+    @picture = Picture.new
+    @tags_string = String.new
+  end
+  
   # GET /pictures/1/edit
   def edit
   end
