@@ -18,7 +18,7 @@
 	          </div>
             <br/>
         <% end %>
-        <button class="btn btn-default" type="button">UPLOAD</button>
+        <button class="btn btn-default" type="button" id="upload_button">UPLOAD</button>
     </div>
     <div class="col-md-6">
         <img src="/assets/noimage.jpg" id="img_preview" style="width: 80%;"/>
@@ -53,11 +53,22 @@
          };
      }
      function uploadToImgr(){
-         
+         if(validateImageFile() == true){
+             $.ajax({
+                 url: "https://api.imgur.com/3/upload",
+                 method: "POST",
+                 headers: {
+                     Authorization: "Bearer YOUR_ACCESS_TOKEN"
+                 },
+                 data: {
+                     image: file,
+                     name: file.name,
+                     type: "file"
+                 }
+             });
+         }
      }
      $("#file").change(handleFileChooser);
-     
-     
-     
+     $("#upload_button").click(uploadToImgr);
  });
 </script>
