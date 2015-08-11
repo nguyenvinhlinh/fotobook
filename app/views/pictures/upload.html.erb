@@ -32,6 +32,9 @@
          $("#file").click();
      });
      function validateImageFile(){
+         if(file == null){
+             return false;
+         }
          if(file.length > 7000000){
              return false;
          }
@@ -53,7 +56,7 @@
          
      }
      $("#file").change(handleFileChooser);
-
+     
      
      
  });
