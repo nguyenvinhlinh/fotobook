@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  get '/pictures/upload', to: 'pictures#upload'
   resources :pictures
   resources :tags, param: :tag_name
   root "pictures#index"
   get '/ac_tag', to: 'tags#ac_by_tag'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
