@@ -3,12 +3,13 @@
         <%= form_for @picture, url: {controller: "pictures", action: "create"} do |f|%>
             <div class="input-group input-group-lg">
 		            <span class="input-group-addon">File</span>
-		            <%= f.text_field :url, class: "form-control", placeholder: "Paste image url here",
-                    id: "img-url"%>
-                <span class="input-group-addon">
-                    <button>Browser </button>
+		            <%= f.text_field :url, class: "form-control", placeholder: "Paste image url here",id: "img-url"%>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" id="browse_button">Browse</button>
                 </span>
 	          </div>
+
+            <input type="file" id="file" style="display:none;"> </input>
             
             <br/>
             <div class="input-group input-group-lg">
@@ -16,8 +17,8 @@
                 <%= text_field_tag :tags_string,nil, class: "form-control", id: "tags2", placeholder: "Tags"%>
 	          </div>
             <br/>
-            <%= f.submit "Upload", class: "btn btn-default"%>
         <% end %>
+        <button class="btn btn-default" type="button">UPLOAD</button>
     </div>
     <div class="col-md-6">
         <img src="/assets/noimage.jpg" id="img-preview" style="width: 80%;"/>
@@ -25,12 +26,8 @@
 </div>
 <script type="text/javascript">
  $(document).ready(function(){
-     if($("#img-url").val() != ""){
-         $("#img-preview").attr("src", $("#img-url").val());
-     }
-     $("#img-url").bind("keyup", function(){
-         console.log("change");
-         $("#img-preview").attr("src", $("#img-url").val());
+     $("#browse_button").click(function(){
+         $("#file").click();
      });
  });
 </script>
