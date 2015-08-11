@@ -2,17 +2,21 @@
     <div class="col-md-6">
         <%= form_for @picture, url: {controller: "pictures", action: "create"} do |f|%>
             <div class="input-group input-group-lg">
-		            <span class="input-group-addon">Url</span>
+		            <span class="input-group-addon">File</span>
 		            <%= f.text_field :url, class: "form-control", placeholder: "Paste image url here",
                     id: "img-url"%>
-	          </div>            
+                <span class="input-group-addon">
+                    <button>Browser </button>
+                </span>
+	          </div>
+            
             <br/>
             <div class="input-group input-group-lg">
 		            <span class="input-group-addon">Tags</span>
                 <%= text_field_tag :tags_string,nil, class: "form-control", id: "tags2", placeholder: "Tags"%>
 	          </div>
             <br/>
-            <%= f.submit "Create", class: "btn btn-default", type: "submit"%>
+            <%= f.submit "Upload", class: "btn btn-default"%>
         <% end %>
     </div>
     <div class="col-md-6">
