@@ -11,12 +11,9 @@ module ImgurApi
     result = Net::HTTP.post_form(uri, client_id => CLIENT_ID,
                                  client_secret => CLIENT_SECRET,
                                  grant_type => "authorization_code",
-                                 code =>
-                                 "5020ce661e82dac69403285d1f71db83e0daaf8e")
+                                 code => AUTHORIZATION_CODE)
     result = Json.parse(result)
     $Access_Token = result['access_token']
     $Refresh_Token = result['refresh_token']
   end
-  
-  
 end
