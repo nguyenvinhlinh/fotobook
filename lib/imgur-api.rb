@@ -6,12 +6,25 @@ module ImgurApi
   AUTHORIZATION_CODE = "5020ce661e82dac69403285d1f71db83e0daaf8e"
   $Access_Token = ""
   $Refresh_Token = ""
-  def refreshTokens
+
+  def initTokens
     uri = URI("https://api.imgur.com/oauth2/token")    
-    result = Net::HTTP.post_form(uri, client_id => CLIENT_ID,
-                                 client_secret => CLIENT_SECRET,
-                                 grant_type => "authorization_code",
-                                 code => AUTHORIZATION_CODE)
+    result = Net::HTTP.post_form(uri, :client_id => CLIENT_ID,
+                                 :client_secret => CLIENT_SECRET,
+                                 :grant_type => "authorization_code",
+                                 :code => AUTHORIZATION_CODE)
+    result = Json.parse(result)
+    $Access_Token = result['access_token']
+    $Refresh_Token = result['refresh_token']
+  end
+  
+  def refreshTokens
+    uri = URI("https://api.imgur.com/oauth2/token")
+    result = Net::HTTP.post_form(uri, :refresh_token => $Refresh_Token,
+                                 :client_id => CLIENT_ID,
+                                 :client_secret => CLIENT_SECRET,
+                                 :grant_type => "authorization_code"
+                                )
     result = Json.parse(result)
     $Access_Token = result['access_token']
     $Refresh_Token = result['refresh_token']
