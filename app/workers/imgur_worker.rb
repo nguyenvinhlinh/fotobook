@@ -6,5 +6,6 @@ class ImgurWorker
   def perform
     p "running"
     refreshTokens
+    ImgurWorker.perform_in(1.minutes)
   end
 end

@@ -31,6 +31,7 @@ module ImgurApi
     p "result: #{result}"
     p "$Access_Token: #{$Access_Token}"
     p "$Refresh_Token: #{$Refresh_Token}"
-    p "##### DEBUG END #####" 
+    p "##### debug end #####" 
   end
 end
+
