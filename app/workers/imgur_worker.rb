@@ -1,6 +1,10 @@
 class ImgurWorker
   include Sidekiq::Worker
-  def perform (name, count)
-    p "#{name}, #{count} Hello, I am ImgurWorker, I will refresh token after each 45 mins"
+  REFREST_TIME = 45 # 45 minutes
+  def perform
+    while (true)
+      ImgurApi::refreshTokens
+      sleep 45 * 60
+    end
   end
 end
