@@ -1,5 +1,4 @@
 require 'imgur-api'
-include ImgurApi
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
   respond_to :html, :json
@@ -59,7 +58,7 @@ class PicturesController < ApplicationController
     @picture = Picture.new
     @tags_string = String.new
     @access_token = ImgurApi.getAccessToken
-    @refresh_token = ImgurApi::getRefreshToken
+    @refresh_token = ImgurApi.getRefreshToken
   end
   
   # GET /pictures/1/edit
