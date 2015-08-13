@@ -80,16 +80,16 @@
              picture: {
                  url: url
              },
-             tags_string: "abc"  
+             tags_string: $("#tags2").val()
          }
-             
          xhr.open("POST", "/pictures");
          var csrf_token = $('meta[name="csrf-token"]').attr('content');
          xhr.setRequestHeader('X-CSRF-Token', csrf_token);
+         xhr.setRequestHeader('Content-Type', 'application/json');
+         xhr.responseType = "json"
          xhr.send(JSON.stringify(param));
+         
      }
-
-     
      $("#file").change(handleFileChooser);
      $("#upload_button").click(uploadToImgr);
  });
