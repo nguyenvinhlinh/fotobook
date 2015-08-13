@@ -1,0 +1,91 @@
+<div class="col-md-12">
+    <div class="col-md-6">
+        <%= form_for @picture, url: {controller: "pictures", action: "create"} do |f|%>
+            <div class="input-group input-group-lg">
+		            <span class="input-group-addon">File</span>
+		            <%= f.text_field :url, class: "form-control", placeholder: "File name",id: "file_name"%>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" id="browse_button">Browse</button>
+                </span>
+	          </div>
+
+            <input type="file" id="file" style="display:none;" > </input>
+            
+            <br/>
+            <div class="input-group input-group-lg">
+		            <span class="input-group-addon">Tags</span>
+                <%= text_field_tag :tags_string,nil, class: "form-control", id: "tags2", placeholder: "Tags"%>
+	          </div>
+            <br/>
+        <% end %>
+        <button class="btn btn-default" type="button" id="upload_button">UPLOAD</button>
+    </div>
+    <div class="col-md-6">
+        <img src="/assets/noimage.jpg" id="img_preview" style="width: 80%;"/>
+    </div>
+</div>
+<script type="text/javascript">
+ $(document).ready(function(){
+     //Handling the button click to choose file
+     var file = null;
+     $("#browse_button").click(function(){
+         $("#file").click();
+     });
+     function validateImageFile(){
+         if(file == null){
+             return false;
+         }
+         if(file.length > 7000000){
+             return false;
+         }
+         if((file.name.endsWith(".png") || file.name.endsWith(".jpg")) == false){
+             return false;
+         }
+         return true;
+     }
+     function handleFileChooser(evt){
+         file = evt.target.files[0];
+         $("#file_name").val(file.name);
+         var filereader = new FileReader();
+         filereader.readAsDataURL(file);
+         filereader.onloadend = function(){
+             $("#img_preview").attr("src", filereader.result);
+         };
+     }
+     function uploadToImgr(){
+         if(validateImageFile() == true){
+             var fd = new FormData();
+             var xhr = new XMLHttpRequest();
+             fd.append ("image", file);
+             xhr.open("POST", "https://api.imgur.com/3/image.json");
+             xhr.onload = function(){
+                 url = JSON.parse(xhr.responseText).data.link;
+                 console.log(url);
+                 submit(url)
+             }
+             //Set header for xhr
+             xhr.setRequestHeader('Authorization', 'Client-ID 0a684f8f62db86a');
+             xhr.send(fd);
+         }
+     }
+     function submit(url){
+         var xhr = new XMLHttpRequest();
+         var fd = new FormData();
+         param = {
+             picture: {
+                 url: url
+             },
+             tags_string: $("#tags2").val()
+         }
+         xhr.open("POST", "/pictures");
+         var csrf_token = $('meta[name="csrf-token"]').attr('content');
+         xhr.setRequestHeader('X-CSRF-Token', csrf_token);
+         xhr.setRequestHeader('Content-Type', 'application/json');
+         xhr.responseType = "json"
+         xhr.send(JSON.stringify(param));
+         
+     }
+     $("#file").change(handleFileChooser);
+     $("#upload_button").click(uploadToImgr);
+ });
+</script>

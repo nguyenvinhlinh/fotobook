@@ -1,3 +1,4 @@
+require 'imgur-api'
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
   respond_to :html, :json
@@ -53,6 +54,13 @@ class PicturesController < ApplicationController
     @tags_string = String.new
   end
 
+  def upload
+    @picture = Picture.new
+    @tags_string = String.new
+    @access_token = ImgurApi.getAccessToken
+    @refresh_token = ImgurApi.getRefreshToken
+  end
+  
   # GET /pictures/1/edit
   def edit
   end
@@ -120,7 +128,6 @@ class PicturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
-#      params.require(:picture).permit(:url, tags_attributes: [:id, :tag])
-      params.require(:picture).permit(:url, {:tag_ids => []})
+      params.require(:picture).permit(:url)
     end
 end

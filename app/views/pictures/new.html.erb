@@ -1,13 +1,32 @@
-<%= form_for @picture, url: {controller: "pictures", action: "create"} do |f|%>
-	<div class="input-group">
-		<span class="input-group-addon" id="basic-addon1">Tags</span>
-
-    <%= text_field_tag :tags_string,nil, class: "form-control", id: "tags2", placeholder: "Tags"%>
-	</div>
-
-	<div class="input-group">
-		<span class="input-group-addon" id="basic-addon1">Url</span>
-		<%= f.text_field :url, class: "form-control", placeholder: "Url"%>
-	</div>
-	<%= f.submit "Create", class: "btn btn-default"%> 
-<% end %>
+<div class="col-md-12">
+    <div class="col-md-6">
+        <%= form_for @picture, url: {controller: "pictures", action: "create"} do |f|%>
+            <div class="input-group input-group-lg">
+		            <span class="input-group-addon">Url</span>
+		            <%= f.text_field :url, class: "form-control", placeholder: "Paste image url here",
+                    id: "img-url"%>
+	          </div>            
+            <br/>
+            <div class="input-group input-group-lg">
+		            <span class="input-group-addon">Tags</span>
+                <%= text_field_tag :tags_string,nil, class: "form-control", id: "tags2", placeholder: "Tags"%>
+	          </div>
+            <br/>
+            <%= f.submit "Create", class: "btn btn-default", type: "submit"%>
+        <% end %>
+    </div>
+    <div class="col-md-6">
+        <img src="/assets/noimage.jpg" id="img-preview" style="width: 80%;"/>
+    </div>
+</div>
+<script type="text/javascript">
+ $(document).ready(function(){
+     if($("#img-url").val() != ""){
+         $("#img-preview").attr("src", $("#img-url").val());
+     }
+     $("#img-url").bind("keyup", function(){
+         console.log("change");
+         $("#img-preview").attr("src", $("#img-url").val());
+     });
+ });
+</script>
