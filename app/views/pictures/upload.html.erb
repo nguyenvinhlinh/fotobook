@@ -59,18 +59,17 @@
      }
      function uploadToImgr(){
          if(validateImageFile() == true){
-             $.ajax({
-                 url: "https://api.imgur.com/3/upload",
-                 method: "POST",
-                 headers: {
-                     Authorization: "Bearer YOUR_ACCESS_TOKEN"
-                 },
-                 data: {
-                     image: file,
-                     name: file.name,
-                     type: "file"
-                 }
-             });
+             var fd = new FormData();
+             var xhr = new XMLHttpRequest();
+             fd.append ("image", file);
+             xhr.open("POST", "https://api.imgur.com/3/image.json");
+             xhr.onload = function(){
+                 url = JSON.parse(xhr.responseText).data.link;
+                 console.log(url);
+             }
+             //Set header for xhr
+             xhr.setRequestHeader('Authorization', 'Client-ID 0a684f8f62db86a');
+             xhr.send(fd);
          }
      }
      $("#file").change(handleFileChooser);
