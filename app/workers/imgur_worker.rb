@@ -4,10 +4,7 @@ class ImgurWorker
   include ImgurApi
   REFREST_TIME = 45 # 45 minutes
   def perform
-    while(true)
-      sleep 45*60
       p "running #{Time.now}"
-      refreshTokens
-    end
+      ImgurApi.refreshTokens()
   end
 end
