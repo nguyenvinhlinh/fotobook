@@ -11,12 +11,9 @@ module Fotobook
     config.autoload_paths += %W(#{config.root}/lib)
     Thread.new {
       require 'imgur-api'
-      _currentTime = Time.now
-      while true
-        if Time.now - _currentTime >= 55 * 60
-          _currentTime = Time.now
-          ImgurApi.refreshTokens
-        end
+      loop do
+        ImgurApi.refreshTokens
+        sleep 3300 #55 minutes
       end
     }
     # Settings in config/environments/* take precedence over those specified here.
