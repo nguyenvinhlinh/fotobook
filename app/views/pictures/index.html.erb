@@ -2,13 +2,9 @@
     <div class="photoset-grid-lightbox" data-layout="3323" style="visibility:hidden;">
         <% @pictures.each do |f| %>
             <% if true  %>
-                <% if f.url[-4..-1] == '.gif' %>
                     <img src="/assets/loading.jpeg"  hrefto="/pictures/<%= f.id %>" data-source="<%= f.url %>" rel="pictures"/>
-                <% else %>
-                    <img src="/assets/loading.jpeg" hrefto="/pictures/<%= f.id %>"  data-source="<%= f.url %>" rel="pictures"/>
                 <% end %>
-            <% end %>
-            
+            <% end %>  
         <% end %>
     </div>
 </div>
@@ -33,5 +29,6 @@
              imgDomArray[index].attr("src", imgURLDomArray[index] );
          };
      });
+     
  });
 </script>
