@@ -1,10 +1,12 @@
 <div class="container" >
-    <div class="photoset-grid-lightbox" data-layout="3323" style="visibility:hidden;">
+    <div class="grid">
+        <div class="grid-sizer"></div>
         <% @pictures.each do |f| %>
-            <% if true  %>
-                    <img src="/assets/loading.jpeg"  hrefto="/pictures/<%= f.id %>" data-source="<%= f.url %>" rel="pictures"/>
+            <div class="grid-item">
+                <% if true %>
+                    <img src="<%= f.url %>"  hrefto="/pictures/<%= f.id %>" data-source="<%= f.url %>" rel="pictures" />
                 <% end %>
-            <% end %>  
+            </div>
         <% end %>
     </div>
 </div>
@@ -15,20 +17,13 @@
 
 <script type="text/javascript">
  $(document).ready(function(){
-     imgDomArray = [];
-     imgURLDomArray = [];
-     $(".photoset-grid-lightbox img").each(function(){
-         imgDomArray.push($(this));
-         imgURLDomArray.push($(this).attr("data-source"));
+     var $grid = $('.grid').masonry({
+         itemSelector: '.grid-item',
+         columnWidth: '.grid-sizer',
+         percentPosition: true
      });
-     images = [];
-     $.each(imgDomArray, function(index){
-         images[index] = new Image();
-         images[index].src = imgURLDomArray[index];
-         images[index].onload = function(){
-             imgDomArray[index].attr("src", imgURLDomArray[index] );
-         };
+     $grid.imagesLoaded().progress(function(){
+         $grid.masonry('layout');
      });
-     
  });
 </script>

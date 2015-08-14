@@ -4,5 +4,7 @@
 //= require jquery.photoset-grid
 //= require jquery.colorbox
 //= require jquery-ui.min
+//= require imagesloaded.pkgd  
+//= require masonry.pkgd
 //= require rails
 //= require_tree .
