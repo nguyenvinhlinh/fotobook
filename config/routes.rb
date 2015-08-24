@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get '/pictures/upload', to: 'pictures#upload'
   resources :pictures
   resources :tags, param: :tag_name
