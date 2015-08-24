@@ -5,7 +5,7 @@ class AddTagsTable < ActiveRecord::Migration
 
     #create new table named tags
     create_table :tags  do |t|
-      t.string :tags,  limit:10
+      t.string :tags,  limit:20
       
     end
 
