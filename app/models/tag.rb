@@ -6,9 +6,9 @@ class Tag < ActiveRecord::Base
             uniqueness: true,
             length: {
               minium: 2,
-              maximum: 10,
-              too_short: "%{count} character is inputed 2 -> 10",
-              too_long: "%{count} character is inputed 2 -> 10"
+              maximum: 15,
+              too_short: "%{count} character is inputed 2 -> 15",
+              too_long: "%{count} character is inputed 2 -> 15"
             }
 
   def self.find(tag_name)
