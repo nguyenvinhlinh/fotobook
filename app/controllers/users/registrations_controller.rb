@@ -6,11 +6,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def new
   #   super
   # end
-
+  
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      notice = "#{@user.email} registered successfyly!"
+    else
+      notice= "Fail to register!"
+    end
+    
+    format.html {
+      redirect_to pictures_path, notice: notice
+    }
+  end
 
   # GET /resource/edit
   # def edit
@@ -57,4 +66,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  private 
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :role)
+  end
 end
