@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   def self.allow_cors(*methods)
     before_filter :cors_before_filter, :only => methods
     protect_from_forgery with: :null_session, :only => methods
-    puts "#### DEBUG allow_cors #{methods}"
   end
 
    def cors_before_filter
