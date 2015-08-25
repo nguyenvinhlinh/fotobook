@@ -4,5 +4,5 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :pictures, class_name: "Picture"
-  ROLES = %i[admin user]
+  ROLES = %i[admin user]  
 end
