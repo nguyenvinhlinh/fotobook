@@ -17,13 +17,9 @@ class Tag < ActiveRecord::Base
   
   def self.existTagName?(tag_name)
     _tag = find(tag_name)
-    if _tag != nil
-      return _tag
-    else
-      return false
-    end
+    return _tag unless _tag.nil?
+    return false
   end
-
   
   # Find a list of tags based on the picture_id
   # Params:
