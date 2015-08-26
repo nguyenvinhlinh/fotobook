@@ -10,16 +10,6 @@ class Tag < ActiveRecord::Base
               too_short: "%{count} character is inputed 2 -> 15",
               too_long: "%{count} character is inputed 2 -> 15"
             }
-
-  def self.find(tag_name)
-    _tag = Tag.find_by(tag: tag_name)
-  end
-  
-  def self.existTagName?(tag_name)
-    _tag = find(tag_name)
-    return _tag unless _tag.nil?
-    return false
-  end
   
   # Find a list of tags based on the picture_id
   # Params:
