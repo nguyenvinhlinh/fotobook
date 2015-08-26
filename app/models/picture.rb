@@ -6,11 +6,11 @@ class Picture < ActiveRecord::Base
 
   # Search pictures by tags
   # Params:
-  # +tag_array+ : an array of tag, empty element will be ignored
+  # +tag_array+ : an array of tag, empty element, duplicate, nil  will be ignored
   # Examples:
   # tag_array = ['th', 'de', 'earth']
-  def self.searchPictureByTags(tag_array)
-    tag_array = tag_array.compact.delete ''
+  def self.searchPictureByTagArray(tag_array)
+    tag_array = tag_array.compact.unique.delete ''
     return nil if tag_array.empty?
     tag_array = tag_array.map {
       |atag|
