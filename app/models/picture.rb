@@ -3,12 +3,19 @@ class Picture < ActiveRecord::Base
   belongs_to :user, class_name: "User", foreign_key: "user_id"
   validates :url, presence: true
 
-  
+
+  # Search pictures by tags
+  # Params:
+  # +tag_array+ : an array of tag, empty element will be ignored
+  # Examples:
+  # tag_array = ['th', 'de', 'earth']
   def self.searchPictureByTags(tag_array)
-    pictures = Picture.joins(:tags).where("tags.tag = #{tag_array.join(',')}")
-    pictures
-  end
-  def self.searchPictureByTagsWildCard(tag_array)
-    
+    tag_array = tag_array.compact.delete ''
+    return nil if tag_array.empty?
+    tag_array = tag_array.map {
+      |atag|
+      like_query = "tags.tag LIKE '%#{atag}%'"
+    }
+    Picture.joins(:tags).where("%s" % tag_array.join(' OR '))
   end
 end
