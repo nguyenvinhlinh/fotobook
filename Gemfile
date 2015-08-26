@@ -46,4 +46,5 @@ group :development, :test do
   gem 'spring', '~> 1.3.6'
   gem 'responders'
   gem 'pry-nav'
+  gem 'pry-doc'
 end
