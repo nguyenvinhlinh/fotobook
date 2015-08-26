@@ -6,35 +6,12 @@ class PicturesController < ApplicationController
   # GET /pictures.json
   def index
     @page_tags = params[:tags]
-    page_number = params[:page]
-    page_number = 1 if page_number == nil
-    if @page_tags == nil || @page_tags == ""
-      @pictures = Picture.all.reverse
-      @pictures = Kaminari.paginate_array(@pictures).page(page_number).per(11)
-
+    page_number = (params[:page].nil? || params[:page].to_i < 1) ? 1 : params[:page]
+    if @page_tags.blank?
+      @pictures = Kaminari.paginate_array(Picture.all.reverse).page(page_number).per(11)
     else
-      tag_array = @page_tags.split(",").map(&:strip).uniq
-      tag_array.delete ""
-      sql_query =
-        "SELECT p.id, p.url from pictures p inner join pictures_tags pt on p.id = pt.picture_id  inner join tags t on pt.tag_id = t.id WHERE"
-      for i in 0...tag_array.size
-        if i == 0
-          sql_query += " t.tag LIKE '%#{tag_array[i]}%' "
-        else
-          sql_query += " OR t.tag LIKE '%#{tag_array[i]}%' "
-        end
-      end
-      record_array = ActiveRecord::Base.connection.execute(sql_query)
-
-      @pictures = Array.new
-      for i in 0...record_array.size
-        record_array[i].delete 0
-        record_array[i].delete 1
-        _picture = Picture.new(record_array[i])
-        @pictures << _picture
-      end
-      
-      @pictures  = Kaminari.paginate_array(@pictures).page(params[:page]).per(25)
+      picture_array = Picture.searchPictureByTagArray(tag_array.split(','))
+      @pictures  = Kaminari.paginate_array(picture_array).page(params[:page]).per(11)
     end
     respond_to do |format|
       format.html
@@ -57,8 +34,6 @@ class PicturesController < ApplicationController
   def upload
     @picture = Picture.new
     @tags_string = String.new
-    @access_token = ImgurApi.getAccessToken
-    @refresh_token = ImgurApi.getRefreshToken
   end
   
   # GET /pictures/1/edit
