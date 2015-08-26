@@ -43,32 +43,23 @@ class PicturesController < ApplicationController
   # POST /pictures
   # POST /pictures.json
   def create
-    @picture = Picture.new(picture_params)
-    @picture.save
-    #create new tag based on the param
-    @tags_string = params[:tags_string]
-    _tagArray = @tags_string.split(",").map(&:strip)
-    _tagArray.uniq
-    _tagArray.delete ""
-    
-    
-    @tags = Array.new
-    for i in 0..._tagArray.size
-      _tag = Tag.find(_tagArray[i])
-      if _tag != nil
-        @tags[i] = _tag
-      else
-        _tag = Tag.new({:tag => _tagArray[i]})
-        _tag.save
-        @tags[i] = _tag
+    picture = Picture.new(picture_params)
+    tag_array = params[:tags_string].split(',')
+    picture.tags << tag_array.map do |tag_s|
+      tag = Tag.find_by(tag: tag_s)
+      if tag.nil?
+        tag = Tag.new(tag: tag_s)
       end
-      sql_insert_pictures_tags =
-        "INSERT INTO pictures_tags (picture_id, tag_id) VALUES (#{@picture.id}, #{@tags[i].id})"
-      ActiveRecord::Base.connection.execute(sql_insert_pictures_tags)
+      tag
     end
     
     respond_to do |format|
-      format.html { redirect_to action: "index" }
+      if picture.save
+        format.html {redirect_to pictures_path, notice: 'Picture was saved'}
+      else
+        format.html {redirect_to new_picture_path, notice: 'Picture failed to save'}
+        
+      end
     end
   end
   # PATCH/PUT /pictures/1
