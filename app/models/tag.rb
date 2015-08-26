@@ -23,4 +23,15 @@ class Tag < ActiveRecord::Base
       return false
     end
   end
+
+  
+  # Find a list of tags based on the picture_id
+  # Params:
+  # +picture_id+: an integer which is picture id
+  # Return:
+  # +tag_array+: it return an ActiveRecord instance
+  def self.searchTagsByPicture(picture_id)
+    raise ArgumentError, "The picture_id should be an integer." unless picture_id.is_a? Integer
+    tag_array = Tag.joins(:pictures).where("pictures.id = #{picture_id}")
+  end
 end
