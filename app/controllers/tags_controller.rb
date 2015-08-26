@@ -43,7 +43,7 @@ class TagsController < ApplicationController
   end
   private
   def set_tag
-    @tag = Tag.find(params[:tag_name])
+    @tag = Tag.find_by(tag: params[:tag_name])
   end
   
   def tag_params
