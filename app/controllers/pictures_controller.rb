@@ -43,6 +43,8 @@ class PicturesController < ApplicationController
   # POST /pictures
   # POST /pictures.json
   def create
+    # FIX
+    # Beautify the input tag, should not be nil, blank, or has multiple consequential spaces 
     picture = Picture.new(picture_params)
     tag_array = params[:tags_string].split(',')
     picture.tags << tag_array.map do |tag_s|
