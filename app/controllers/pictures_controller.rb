@@ -1,4 +1,4 @@
-require 'imgur-api'
+include Utilities
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
   respond_to :html, :json
@@ -43,10 +43,8 @@ class PicturesController < ApplicationController
   # POST /pictures
   # POST /pictures.json
   def create
-    # FIX
-    # Beautify the input tag, should not be nil, blank, or has multiple consequential spaces 
     picture = Picture.new(picture_params)
-    tag_array = params[:tags_string].split(',')
+    tag_array = stringToArray params[:tags_string]
     picture.tags << tag_array.map do |tag_s|
       tag = Tag.find_by(tag: tag_s)
       if tag.nil?
