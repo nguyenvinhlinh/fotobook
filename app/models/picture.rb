@@ -11,7 +11,7 @@ class Picture < ActiveRecord::Base
   # ignored
   # Return: An array of picture < ActiveRecord
   def self.searchByTagArray(tag_array)
-    tag_array = tag_array.compact - [nil, ""]
+    tag_array = tag_array.compact.uniq - [nil, ""]
     return nil if tag_array.empty?
     tag_array = tag_array.map do
       |atag|
