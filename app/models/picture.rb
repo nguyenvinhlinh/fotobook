@@ -7,16 +7,16 @@ class Picture < ActiveRecord::Base
 
   # Search pictures by tags
   # Params:
-  # +tag_array+ : an array of tag, empty element, duplicate, nil  will be ignored
-  # Examples:
-  # tag_array = ['th', 'de', 'earth']
-  def self.searchPictureByTagArray(tag_array)
-    tag_array = tag_array.compact.unique.delete ''
+  # +tag_array+ : an array of tag, empty element, duplicate, nil  will be
+  # ignored
+  # Return: An array of picture < ActiveRecord
+  def self.searchByTagArray(tag_array)
+    tag_array = tag_array.compact - [nil, ""]
     return nil if tag_array.empty?
-    tag_array = tag_array.map {
+    tag_array = tag_array.map do
       |atag|
-      like_query = "tags.tag LIKE '%#{atag}%'"
-    }
+      _like_query = "tags.tag LIKE '%#{atag}%'"
+    end
     Picture.joins(:tags).where("%s" % tag_array.join(' OR '))
   end
 end
