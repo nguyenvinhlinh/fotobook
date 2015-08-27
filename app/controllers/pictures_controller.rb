@@ -78,6 +78,8 @@ class PicturesController < ApplicationController
 
   # DELETE /pictures/1
   # DELETE /pictures/1.json
+  # TODO: must destrou row in pictures_tags table too, the problem also occur
+  # with tags model
   def destroy
     @picture.destroy
     respond_to do |format|
