@@ -58,7 +58,6 @@ class PicturesController < ApplicationController
         format.html {redirect_to pictures_path, notice: 'Picture was saved'}
       else
         format.html {redirect_to new_picture_path, notice: 'Picture failed to save'}
-        
       end
     end
   end
@@ -78,9 +77,8 @@ class PicturesController < ApplicationController
 
   # DELETE /pictures/1
   # DELETE /pictures/1.json
-  # TODO: must destrou row in pictures_tags table too, the problem also occur
-  # with tags model
   def destroy
+    @picture.tags.clear
     @picture.destroy
     respond_to do |format|
       format.html { redirect_to pictures_url, notice: 'Picture was successfully destroyed.' }
