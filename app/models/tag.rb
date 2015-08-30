@@ -10,17 +10,14 @@ class Tag < ActiveRecord::Base
               too_short: "%{count} character is inputed 2 -> 15",
               too_long: "%{count} character is inputed 2 -> 15"
             }
-
-  def self.find(tag_name)
-    _tag = Tag.find_by(tag: tag_name)
-  end
   
-  def self.existTagName?(tag_name)
-    _tag = find(tag_name)
-    if _tag != nil
-      return _tag
-    else
-      return false
-    end
+  # Find a list of tags based on the picture_id
+  # Params:
+  # +picture_id+: an integer which is picture id
+  # Return:
+  # +tag_array+: it return an ActiveRecord instance
+  def self.searchTagsByPicture(picture_id)
+    raise ArgumentError, "The picture_id should be an integer." unless picture_id.is_a? Integer
+    tag_array = Tag.joins(:pictures).where("pictures.id = #{picture_id}")
   end
 end

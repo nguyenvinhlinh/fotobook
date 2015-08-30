@@ -46,3 +46,10 @@ tag2.pictures << picture_url2.map{
   |e| _pic = Picture.new(url: e)
 }
 tag2.save
+
+tag3 = Tag.new(tag: 'cogini')
+picture_url3 = ["https://farm6.staticflickr.com/5661/20921420825_48f98fa246_b.jpg"]
+tag3.pictures << picture_url3.map{
+  |e| _pic = Picture.new(url: e)
+}
+tag3.save

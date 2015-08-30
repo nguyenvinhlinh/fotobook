@@ -1,4 +1,4 @@
-require 'imgur-api'
+include Utilities
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
   respond_to :html, :json
@@ -6,35 +6,12 @@ class PicturesController < ApplicationController
   # GET /pictures.json
   def index
     @page_tags = params[:tags]
-    page_number = params[:page]
-    page_number = 1 if page_number == nil
-    if @page_tags == nil || @page_tags == ""
-      @pictures = Picture.all.reverse
-      @pictures = Kaminari.paginate_array(@pictures).page(page_number).per(11)
-
+    page_number = (params[:page].nil? || params[:page].to_i < 1) ? 1 : params[:page]
+    if @page_tags.blank?
+      @pictures = Kaminari.paginate_array(Picture.all.reverse).page(page_number).per(11)
     else
-      tag_array = @page_tags.split(",").map(&:strip).uniq
-      tag_array.delete ""
-      sql_query =
-        "SELECT p.id, p.url from pictures p inner join pictures_tags pt on p.id = pt.picture_id  inner join tags t on pt.tag_id = t.id WHERE"
-      for i in 0...tag_array.size
-        if i == 0
-          sql_query += " t.tag LIKE '%#{tag_array[i]}%' "
-        else
-          sql_query += " OR t.tag LIKE '%#{tag_array[i]}%' "
-        end
-      end
-      record_array = ActiveRecord::Base.connection.execute(sql_query)
-
-      @pictures = Array.new
-      for i in 0...record_array.size
-        record_array[i].delete 0
-        record_array[i].delete 1
-        _picture = Picture.new(record_array[i])
-        @pictures << _picture
-      end
-      
-      @pictures  = Kaminari.paginate_array(@pictures).page(params[:page]).per(25)
+      picture_array = Picture.searchPictureByTagArray(tag_array.split(','))
+      @pictures  = Kaminari.paginate_array(picture_array).page(params[:page]).per(11)
     end
     respond_to do |format|
       format.html
@@ -57,8 +34,6 @@ class PicturesController < ApplicationController
   def upload
     @picture = Picture.new
     @tags_string = String.new
-    @access_token = ImgurApi.getAccessToken
-    @refresh_token = ImgurApi.getRefreshToken
   end
   
   # GET /pictures/1/edit
@@ -68,32 +43,22 @@ class PicturesController < ApplicationController
   # POST /pictures
   # POST /pictures.json
   def create
-    @picture = Picture.new(picture_params)
-    @picture.save
-    #create new tag based on the param
-    @tags_string = params[:tags_string]
-    _tagArray = @tags_string.split(",").map(&:strip)
-    _tagArray.uniq
-    _tagArray.delete ""
-    
-    
-    @tags = Array.new
-    for i in 0..._tagArray.size
-      _tag = Tag.find(_tagArray[i])
-      if _tag != nil
-        @tags[i] = _tag
-      else
-        _tag = Tag.new({:tag => _tagArray[i]})
-        _tag.save
-        @tags[i] = _tag
+    picture = Picture.new(picture_params)
+    tag_array = stringToArray params[:tags_string]
+    picture.tags << tag_array.map do |tag_s|
+      tag = Tag.find_by(tag: tag_s)
+      if tag.nil?
+        tag = Tag.new(tag: tag_s)
       end
-      sql_insert_pictures_tags =
-        "INSERT INTO pictures_tags (picture_id, tag_id) VALUES (#{@picture.id}, #{@tags[i].id})"
-      ActiveRecord::Base.connection.execute(sql_insert_pictures_tags)
+      tag
     end
     
     respond_to do |format|
-      format.html { redirect_to action: "index" }
+      if picture.save
+        format.html {redirect_to pictures_path, notice: 'Picture was saved'}
+      else
+        format.html {redirect_to new_picture_path, notice: 'Picture failed to save'}
+      end
     end
   end
   # PATCH/PUT /pictures/1
@@ -113,6 +78,7 @@ class PicturesController < ApplicationController
   # DELETE /pictures/1
   # DELETE /pictures/1.json
   def destroy
+    @picture.tags.clear
     @picture.destroy
     respond_to do |format|
       format.html { redirect_to pictures_url, notice: 'Picture was successfully destroyed.' }

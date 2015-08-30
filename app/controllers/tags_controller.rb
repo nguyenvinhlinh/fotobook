@@ -23,34 +23,26 @@ class TagsController < ApplicationController
   end
 
   def destroy
-    sql_delete = "DELETE FROM pictures_tags WHERE id = #{@tag.id}"
-    ActiveRecord::Base.connection.execute(sql_delete)
+    @tag.pictures.clear
     @tag.destroy
     respond_to do |format|
       format.html {redirect_to tags_url, notice: 'tag was successfully destroyed'}
     end
   end
-  def ac_by_tag
-    _term = params[:term].strip
-    sql = "SELECT * FROM tags WHERE tag LIKE '%#{_term}%'"
-    @tags = Tag.find_by_sql(sql)
-
-    @tags.each do |t|
-      puts "id: #{t.id}, tag: #{t.tag}"
-    end
-    respond_to do |f|
-      f.json {render :json => @tags.to_json(:only => ["tag"])  }
-    end
-  end
-
   
   def show
     @tag = Tag.includes(:pictures).find_by(tag:  params[:tag_name])
   end
 
+  def ac_by_tag
+    tags = Tag.where("tag LIKE '%#{params[:term].strip}%'")
+    respond_to do |f|
+      f.json {render :json => tags.to_json(:only => ["tag"])  }
+    end
+  end
   private
   def set_tag
-    @tag = Tag.find(params[:tag_name])
+    @tag = Tag.find_by(tag: params[:tag_name])
   end
   
   def tag_params
