@@ -4,5 +4,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :pictures, class_name: "Picture"
-  ROLES = %i[admin user]  
+  ROLES = %i[admin user]
+  def admin?
+    self.role == :admin
+  end
+
+  def user?
+    self.role == :user
+  end
 end

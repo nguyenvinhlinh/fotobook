@@ -1,6 +1,7 @@
 include Utilities
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource 
   respond_to :html, :json
   # GET /pictures
   # GET /pictures.json
