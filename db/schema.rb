@@ -11,8 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 20150826182046) do
 
-ActiveRecord::Schema.define(version: 20150825033313) do
   create_table "pictures", force: :cascade do |t|
     t.string   "url"
     t.datetime "created_at", null: false
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150825033313) do
   add_index "pictures_tags", ["picture_id", "tag_id"], name: "index_pictures_tags_on_picture_id_and_tag_id"
 
   create_table "tags", force: :cascade do |t|
-    t.string "tag", limit: 10
+    t.string "tag", limit: 15
   end
 
   add_index "tags", ["tag"], name: "index_tags_on_tag", unique: true
