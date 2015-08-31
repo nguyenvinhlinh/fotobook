@@ -67,21 +67,4 @@ $(document).on "page:change", ->
           return
       ).data('ui-autocomplete')._renderItem = (ul,item) ->
           $('<li></li>').data('item.autocomplete', item).append(item.tag).appendTo(ul)
-
-    $.colorbox.remove()
-    $('.photoset-grid-lightbox').photosetGrid
-      gutter: '2px'
-      rel: 'pictures'
-      highresLinks: true
-      onComplete: ->
-        $('.photoset-grid-lightbox').attr('style', '')
-        $('.photoset-grid-lightbox img').colorbox
-          href: ->
-            return $(this).data('source')
-          photo:true
-          scalePhotos: true
-          maxHeight: '90%'
-          maxWidth: '90%'
-        return
-    return    
 return
