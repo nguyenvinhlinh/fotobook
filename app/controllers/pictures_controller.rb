@@ -65,9 +65,15 @@ class PicturesController < ApplicationController
       end
       tag
     end
+    isSave = true
+    if user_signed_in?
+      current_user.pictures << picture
+    else
+      isSave = picture.save
+    end
     
     respond_to do |format|
-      if picture.save
+      if isSave
         format.html {redirect_to pictures_path, notice: 'Picture was saved'}
       else
         format.html {redirect_to new_picture_path, notice: 'Picture failed to save'}
