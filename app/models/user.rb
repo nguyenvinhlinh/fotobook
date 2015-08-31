@@ -6,10 +6,10 @@ class User < ActiveRecord::Base
   has_many :pictures, class_name: "Picture"
   ROLES = %i[admin user]
   def admin?
-    self.role == :admin
+    self.role == "admin"
   end
 
   def user?
-    self.role == :user
+    self.role == "user"
   end
 end
