@@ -4,7 +4,7 @@
         <% @pictures.each do |f| %>
             <div class="grid-item">
                 <% if true %>
-                    <img src="<%= f.url %>"  hrefto="/pictures/<%= f.id %>" data-source="<%= f.url %>" rel="pictures" />
+                    <img src="<%= f.url %>" href="<%= f.url %>"  hrefto="/pictures/<%= f.id %>" rel="pictures" />
                 <% end %>
             </div>
         <% end %>
@@ -25,5 +25,6 @@
      $grid.imagesLoaded().progress(function(){
          $grid.masonry('layout');
      });
+     $('img').colorbox({rel: 'pictures', photo:true});
  });
 </script>
