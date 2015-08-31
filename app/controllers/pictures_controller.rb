@@ -6,8 +6,8 @@ class PicturesController < ApplicationController
   # GET /pictures
   # GET /pictures.json
   def index
-    @page_tags = params[:tags]
     page_number = (params[:page].nil? || params[:page].to_i < 1) ? 1 : params[:page]
+    @page_tags = params[:tags]
     if @page_tags.blank?
       @pictures = Kaminari.paginate_array(Picture.all.reverse).page(page_number).per(11)
     else
@@ -17,15 +17,27 @@ class PicturesController < ApplicationController
     respond_to do |format|
       format.html
       format.json{render json: @pictures}
-    end  
+    end
   end
   
+  def myIndex
+    if user_signed_in? 
+      page_number = (params[:page].nil? || params[:page].to_i < 1) ? 1 : params[:page]
+      @pictures = Kaminari.paginate_array(current_user.pictures).page(page_number).per(11)
+      respond_to do |format|
+        format.html
+        format.json{render json: @pictures}
+      end
+    else
+      redirect_to new_user_session
+    end
+  end
   # GET /pictures/1
   # GET /pictures/1.json
   def show
     @picture = Picture.includes(:tags).find(params[:id])
   end
-
+  
   # GET /pictures/new
   def new
     @picture = Picture.new
