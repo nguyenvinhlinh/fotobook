@@ -36,6 +36,7 @@ class PicturesController < ApplicationController
   # GET /pictures/1.json
   def show
     @picture = Picture.includes(:tags).find(params[:id])
+    @is_belong_to_current_user = is_belong_to_current_user
   end
   
   # GET /pictures/new
@@ -114,5 +115,9 @@ class PicturesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
       params.require(:picture).permit(:url)
+    end
+    
+    def is_belong_to_current_user
+      return current_user == @picture.user
     end
 end
