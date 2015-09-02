@@ -50,12 +50,10 @@ class PicturesController < ApplicationController
     @tags_string = String.new
   end
   
-  # GET /pictures/1/edit
   def edit
+    redirect_to new_user_session_path if not is_belong_to_current_user
   end
   
-  # POST /pictures
-  # POST /pictures.json
   def create
     picture = Picture.new(picture_params)
     tag_array = stringToArray params[:tags_string]
@@ -72,7 +70,6 @@ class PicturesController < ApplicationController
     else
       isSave = picture.save
     end
-    
     respond_to do |format|
       if isSave
         format.html {redirect_to pictures_path, notice: 'Picture was saved'}
@@ -81,22 +78,23 @@ class PicturesController < ApplicationController
       end
     end
   end
-  # PATCH/PUT /pictures/1
-  # PATCH/PUT /pictures/1.json
+  
   def update
-    respond_to do |format|
-      if @picture.update(picture_params)
-        format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
-        format.json { render :show, status: :ok, location: @picture }
-      else
-        format.html { render :edit }
-        format.json { render json: @picture.errors, status: :unprocessable_entity }
+    if is_belong_to_current_user
+      respond_to do |format|
+        if @picture.update(picture_params)
+          format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
+          format.json { render :show, status: :ok, location: @picture }
+        else
+          format.html { render :edit }
+          format.json { render json: @picture.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to new_user_session
     end
   end
-
-  # DELETE /pictures/1
-  # DELETE /pictures/1.json
+  
   def destroy
     @picture.tags.clear
     @picture.destroy
