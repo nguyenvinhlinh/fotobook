@@ -542,9 +542,6 @@
 				$prev.click(function () {
 					publicMethod.prev();
 				});
-        $info.click(function (){
-          publicMethod.info();
-        });
 				$close.click(function () {
 					publicMethod.close();
 				});
@@ -1056,11 +1053,6 @@
 			launch($related[index]);
 		}
 	};
-  publicMethod.info = function(){
-    url = $related[index].children[0].getAttribute("hrefto");
-    window.location.href = url
-  };
-
 	// Note: to use this within an iframe use the following format: parent.jQuery.colorbox.close();
 	publicMethod.close = function () {
 		if (open && !closing) {
