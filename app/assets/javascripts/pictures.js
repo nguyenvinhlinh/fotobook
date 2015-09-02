@@ -45,4 +45,10 @@ $(document).on("page:change", function(){
   });
   $.colorbox.remove();
   $('img').colorbox({rel: 'pictures', photo:true});
+  // Set action to info button 'I'
+  $("#cboxInfo").click(function(){
+    var $image_tag = $.colorbox.element();
+    console.log($image_tag.attr('hrefto'));
+    window.location.href = $image_tag.attr('hrefto');
+  });
 });
