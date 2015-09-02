@@ -35,4 +35,14 @@ $(document).on("page:change", function(){
       return false;
     }
   });
+  var $grid = $('.grid').masonry({
+    itemSelector: '.grid-item',
+    columnWidth: '.grid-sizer',
+    percentPosition: true
+  });
+  $grid.imagesLoaded().progress(function(){
+    $grid.masonry('layout');
+  });
+  $.colorbox.remove();
+  $('img').colorbox({rel: 'pictures', photo:true});
 });
