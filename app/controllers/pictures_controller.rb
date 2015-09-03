@@ -91,16 +91,20 @@ class PicturesController < ApplicationController
         end
       end
     else
-      redirect_to new_user_session
+      redirect_to new_user_session_path
     end
   end
   
   def destroy
+    if is_belong_to_current_user
     @picture.tags.clear
     @picture.destroy
     respond_to do |format|
       format.html { redirect_to pictures_url, notice: 'Picture was successfully destroyed.' }
       format.json { head :no_content }
+    end
+    else
+      redirect_to new_user_session_path
     end
   end
   
