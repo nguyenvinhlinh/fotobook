@@ -1,25 +1,13 @@
-<%= form_for(@picture) do |f| %>
-  <% if @picture.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@picture.errors.count, "error") %> prohibited this picture from being saved:</h2>
-
-      <ul>
-      <% @picture.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= form_tag("/users/pictures/#{@picture.id}", method: :patch) do %>
+    <div class="field">
+        <%= label_tag :url, "Image URL: " %>
+        <%= text_field_tag :url, @picture.url %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :tags %><br>
-    <%= f.text_field :tags %>
-  </div>
-  <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_field :url %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="field">
+        <%= label_tag :tags_string, "Tags: " %>
+        <%= text_field_tag :tags_string, @picture.tags.map {|t| t.tag}.join(', ') %>
+    </div>
+    <div class="field">
+        <%= submit_tag "Update" %>
+    </div>
 <% end %>
