@@ -82,13 +82,19 @@ class PicturesController < ApplicationController
   def update
     if is_belong_to_current_user
       respond_to do |format|
-        if @picture.update(picture_params)
-          format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
-          format.json { render :show, status: :ok, location: @picture }
-        else
-          format.html { render :edit }
-          format.json { render json: @picture.errors, status: :unprocessable_entity }
-        end
+        tags_string = params[:tags_string]
+        tag_array = stringToArray tags_string
+        @picture.tags.clear
+        @picture.tags << tag_array.map {
+          |t|
+          tag = Tag.find_by(tag: t)
+          if tag.nil?
+            tag = Tag.new(tag: t)
+          end
+          tag
+        }
+        format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
+        format.json { render :show, status: :ok, location: @picture }
       end
     else
       redirect_to new_user_session_path
