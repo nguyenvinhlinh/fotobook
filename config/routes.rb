@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :tags, param: :tag_name  do
+  resources :tags, param: :tag_name do
     collection do
       get 'ac_tag', to: 'tags#ac_by_tag' 
     end
