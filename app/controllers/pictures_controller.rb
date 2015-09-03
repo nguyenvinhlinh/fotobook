@@ -126,6 +126,9 @@ class PicturesController < ApplicationController
     end
     
     def is_belong_to_current_user
+      if not user_signed_in?
+        return false
+      end
       return current_user == @picture.user
     end
 end
