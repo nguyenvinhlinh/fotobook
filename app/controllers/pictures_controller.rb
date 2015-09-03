@@ -1,12 +1,13 @@
 include Utilities
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource 
   respond_to :html, :json
   # GET /pictures
   # GET /pictures.json
   def index
-    @page_tags = params[:tags]
     page_number = (params[:page].nil? || params[:page].to_i < 1) ? 1 : params[:page]
+    @page_tags = params[:tags]
     if @page_tags.blank?
       @pictures = Kaminari.paginate_array(Picture.all.reverse).page(page_number).per(11)
     else
@@ -16,15 +17,28 @@ class PicturesController < ApplicationController
     respond_to do |format|
       format.html
       format.json{render json: @pictures}
-    end  
+    end
   end
   
+  def myIndex
+    if user_signed_in? 
+      page_number = (params[:page].nil? || params[:page].to_i < 1) ? 1 : params[:page]
+      @pictures = Kaminari.paginate_array(current_user.pictures).page(page_number).per(11)
+      respond_to do |format|
+        format.html{render template: "/pictures/index.html.erb" }
+        format.json{render json: @pictures}
+      end
+    else
+      redirect_to new_user_session
+    end
+  end
   # GET /pictures/1
   # GET /pictures/1.json
   def show
     @picture = Picture.includes(:tags).find(params[:id])
+    @is_belong_to_current_user = is_belong_to_current_user
   end
-
+  
   # GET /pictures/new
   def new
     @picture = Picture.new
@@ -36,12 +50,10 @@ class PicturesController < ApplicationController
     @tags_string = String.new
   end
   
-  # GET /pictures/1/edit
   def edit
+    redirect_to new_user_session_path if not is_belong_to_current_user
   end
   
-  # POST /pictures
-  # POST /pictures.json
   def create
     picture = Picture.new(picture_params)
     tag_array = stringToArray params[:tags_string]
@@ -52,37 +64,53 @@ class PicturesController < ApplicationController
       end
       tag
     end
-    
+    isSave = true
+    if user_signed_in?
+      current_user.pictures << picture
+    else
+      isSave = picture.save
+    end
     respond_to do |format|
-      if picture.save
+      if isSave
         format.html {redirect_to pictures_path, notice: 'Picture was saved'}
       else
         format.html {redirect_to new_picture_path, notice: 'Picture failed to save'}
       end
     end
   end
-  # PATCH/PUT /pictures/1
-  # PATCH/PUT /pictures/1.json
+  
   def update
-    respond_to do |format|
-      if @picture.update(picture_params)
+    if is_belong_to_current_user
+      respond_to do |format|
+        tags_string = params[:tags_string]
+        tag_array = stringToArray tags_string
+        @picture.tags.clear
+        @picture.tags << tag_array.map {
+          |t|
+          tag = Tag.find_by(tag: t)
+          if tag.nil?
+            tag = Tag.new(tag: t)
+          end
+          tag
+        }
         format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
         format.json { render :show, status: :ok, location: @picture }
-      else
-        format.html { render :edit }
-        format.json { render json: @picture.errors, status: :unprocessable_entity }
       end
+    else
+      redirect_to new_user_session_path
     end
   end
-
-  # DELETE /pictures/1
-  # DELETE /pictures/1.json
+  
   def destroy
-    @picture.tags.clear
-    @picture.destroy
-    respond_to do |format|
-      format.html { redirect_to pictures_url, notice: 'Picture was successfully destroyed.' }
-      format.json { head :no_content }
+    if is_belong_to_current_user
+      @picture.tags.clear
+      @picture.destroy
+      respond_to do |format|
+        format.html { redirect_to pictures_url, notice: 'Picture was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to new_user_session_path
     end
   end
   
@@ -95,5 +123,12 @@ class PicturesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
       params.require(:picture).permit(:url)
+    end
+    
+    def is_belong_to_current_user
+      if not user_signed_in?
+        return false
+      end
+      return current_user == @picture.user
     end
 end

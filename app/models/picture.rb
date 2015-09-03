@@ -3,8 +3,8 @@ class Picture < ActiveRecord::Base
                           foreign_key: "picture_id",
                           association_foreign_key: "tag_id"
   validates :url, presence: true
-
-
+  belongs_to :user, class_name: "User", foreign_key: "user_id"
+  
   # Search pictures by tags
   # Params:
   # +tag_array+ : an array of tag, empty element, duplicate, nil  will be

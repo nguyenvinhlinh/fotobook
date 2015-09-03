@@ -15,7 +15,8 @@
 <p>
   <img class="img-responsive"src="<%= @picture.url %>"/>
 </p>
-
-<%= link_to 'Edit', edit_picture_path(@picture) %> |
-<%= link_to 'Delete', @picture, :method => :delete, :data => {:confirm => "Are you sure ?"} %> |
+<% if @is_belong_to_current_user %>
+    <%= link_to 'Edit', edit_users_picture_path(@picture) %> |
+    <%= link_to 'Delete', "/users/pictures/#{@picture.id}", :method => :delete, :data => {:confirm => "Are you sure ?"} %> |
+<% end %>
 <%= link_to 'Back', pictures_path %>

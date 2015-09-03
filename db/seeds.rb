@@ -53,3 +53,10 @@ tag3.pictures << picture_url3.map{
   |e| _pic = Picture.new(url: e)
 }
 tag3.save
+
+admin = User.new(email: "admin@fb.com", password: "admin123",
+                 password_confirmation: "admin123", role: "admin" )
+user1 = User.new(email: "user1@fb.com", password: "user1234",
+                 password_confirmation: "user1234", role: "user")
+admin.save
+user1.save

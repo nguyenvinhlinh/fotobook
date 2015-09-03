@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150826182046) do
   add_index "pictures_tags", ["picture_id", "tag_id"], name: "index_pictures_tags_on_picture_id_and_tag_id"
 
   create_table "tags", force: :cascade do |t|
-    t.string "tag", limit: 10
+    t.string "tag", limit: 15
   end
 
   add_index "tags", ["tag"], name: "index_tags_on_tag", unique: true
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20150826182046) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "role"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

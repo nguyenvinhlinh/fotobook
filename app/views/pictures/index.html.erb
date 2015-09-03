@@ -4,7 +4,7 @@
         <% @pictures.each do |f| %>
             <div class="grid-item">
                 <% if true %>
-                    <img src="<%= f.url %>"  hrefto="/pictures/<%= f.id %>" data-source="<%= f.url %>" rel="pictures" />
+                    <img src="<%= f.url %>" href="<%= f.url %>"  hrefto="/pictures/<%= f.id %>" rel="pictures" />
                 <% end %>
             </div>
         <% end %>
@@ -14,16 +14,3 @@
     <%= link_to_previous_page @pictures, 'Previous', :params =>{"tags"=>@page_tags},class: "btn btn-primary btn-lg active"%>
     <%= link_to_next_page @pictures, 'Next', :params => {"tags" => @page_tags},class: "btn btn-primary btn-lg active" %>
 </div>
-
-<script type="text/javascript">
- $(document).ready(function(){
-     var $grid = $('.grid').masonry({
-         itemSelector: '.grid-item',
-         columnWidth: '.grid-sizer',
-         percentPosition: true
-     });
-     $grid.imagesLoaded().progress(function(){
-         $grid.masonry('layout');
-     });
- });
-</script>

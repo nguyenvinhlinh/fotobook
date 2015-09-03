@@ -1,6 +1,7 @@
 class TagsController < ApplicationController
   allow_cors :ac_by_tag
   before_action :set_tag, only: [:show, :destroy ]
+  load_and_authorize_resource
   def new
     @tag = Tag.new
   end
@@ -21,12 +22,16 @@ class TagsController < ApplicationController
   def index
     @tags = Tag.all
   end
-
+  
   def destroy
-    @tag.pictures.clear
-    @tag.destroy
-    respond_to do |format|
-      format.html {redirect_to tags_url, notice: 'tag was successfully destroyed'}
+    if current_user.admin?
+      @tag.pictures.clear
+      @tag.destroy
+      respond_to do |format|
+        format.html {redirect_to tags_url, notice: 'tag was successfully destroyed'}
+      end
+    else
+      redirect_to new_user_session_path
     end
   end
   
@@ -40,6 +45,7 @@ class TagsController < ApplicationController
       f.json {render :json => tags.to_json(:only => ["tag"])  }
     end
   end
+  
   private
   def set_tag
     @tag = Tag.find_by(tag: params[:tag_name])
