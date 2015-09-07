@@ -6,9 +6,9 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif user.user?
-      can :manage, :all #in testing
+      can :manage, [Tag, Picture]
     else
-      can :read, :all
+      can :read, Picture
     end
   end
 end
