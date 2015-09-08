@@ -11,7 +11,8 @@ class PicturesController < ApplicationController
     if @page_tags.blank?
       @pictures = Kaminari.paginate_array(Picture.all.reverse).page(page_number).per(11)
     else
-      picture_array = Picture.searchPictureByTagArray(tag_array.split(','))
+      _tag_array = stringToArray(@page_tags)
+      picture_array = Picture.searchByTagArray(_tag_array)
       @pictures  = Kaminari.paginate_array(picture_array).page(params[:page]).per(11)
     end
     respond_to do |format|
