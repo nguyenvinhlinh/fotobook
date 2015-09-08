@@ -5,13 +5,13 @@ class Tag < ActiveRecord::Base
             presence: true,
             uniqueness: true,
             length: {
-              minium: 2,
+              minimum: 2,
               maximum: 15,
               too_short: "%{count} character is inputed 2 -> 15",
               too_long: "%{count} character is inputed 2 -> 15"
             }
-  
-  # Find a list of tags based on the picture_id
+
+    # Find a list of tags based on the picture_id
   # Params:
   # +picture_id+: an integer which is picture id
   # Return:
