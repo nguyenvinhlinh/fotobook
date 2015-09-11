@@ -6,6 +6,9 @@ module Utilities
   # +tags_string: a string of tag which separated by commas
   # Return: an array of string 
   def stringToArray(a_string)
+    if a_string.nil?
+      return []
+    end
     _string_array = a_string.split(',').collect(&:strip).uniq - ["", nil]
   end
 end
