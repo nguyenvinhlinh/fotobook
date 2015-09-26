@@ -3,9 +3,7 @@
         <div class="grid-sizer"></div>
         <% @pictures.each do |f| %>
             <div class="grid-item">
-                <% if true %>
-                    <img src="<%= f.url %>" href="<%= f.url %>"  hrefto="/pictures/<%= f.id %>" rel="pictures" />
-                <% end %>
+              <img src="<%= f.url %>" href="<%= f.url %>"  hrefto="/pictures/<%= f.id %>" rel="pictures" />
             </div>
         <% end %>
     </div>
