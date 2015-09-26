@@ -12,3 +12,39 @@
     <%= link_to_previous_page @pictures, 'Previous', :params =>{"tags"=>@page_tags},class: "btn btn-primary btn-lg active"%>
     <%= link_to_next_page @pictures, 'Next', :params => {"tags" => @page_tags},class: "btn btn-primary btn-lg active" %>
 </div>
+
+<script type="text/javascript">
+ var currentPage = 1;
+ var isFetching = false;
+ <% unless @page.nil? %>
+ currentPage = <%= @page %>
+ <% end %>
+ $(window).scroll(function(){
+   var e = $(window);
+   if(e.scrollTop() + e.height() == $(document).height()){
+     if(isFetching == false){
+       var promise = loadMoreImage();
+       promise.then(function(data){
+         isFetching = false;
+         console.log("OK " + data);
+       }, function(data){
+         isFetching = false;
+         console.log("ERROR " + data);
+       });
+     }
+   }
+ });
+ function loadMoreImage(){
+   return new Promise(function(resolve, reject){
+     isFetching = true;
+     //API HERE
+     setTimeout(function(){
+       if (Math.random() < 0.5) {
+         resolve("OK");
+       } else {
+         reject("ERROR");
+       }
+     }, 2000);
+   });
+ }
+</script>
