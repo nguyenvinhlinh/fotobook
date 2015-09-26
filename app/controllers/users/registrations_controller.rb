@@ -10,6 +10,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     @user = User.new(user_params)
+    @user.role = "user"
     if @user.save
       notice = "#{@user.email} registered successfyly!"
     else
