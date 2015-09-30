@@ -31,11 +31,11 @@
  $.colorbox.remove();
  $('img').colorbox({rel: 'pictures', photo:true});
  // Set action to info button 'I'
-  $("#cboxInfo").click(function(){
-    var $image_tag = $.colorbox.element();
-    console.log($image_tag.attr('hrefto'));
-    window.location.href = $image_tag.attr('hrefto');
-  });
+ $("#cboxInfo").click(function(){
+   var $image_tag = $.colorbox.element();
+   console.log($image_tag.attr('hrefto'));
+   window.location.href = $image_tag.attr('hrefto');
+ });
  //Actions
  $(window).scroll(function(){
    var e = $(window);
@@ -50,6 +50,7 @@
            $grid.append(dom);
            $grid.imagesLoaded(function(){
              $grid.masonry('reloadItems').masonry();
+             $('img').colorbox({rel: 'pictures', photo:true});
            });
          }
        }, function(data){
