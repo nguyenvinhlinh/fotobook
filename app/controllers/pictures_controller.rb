@@ -27,7 +27,7 @@ class PicturesController < ApplicationController
       page_number = (params[:page].nil? || params[:page].to_i < 1) ? 1 : params[:page]
       @pictures = Kaminari.paginate_array(current_user.pictures).page(page_number).per(NUMBER_OF_PICTURES_PER_PAGE)
       respond_to do |format|
-        format.html{render template: "/pictures/index.html.erb" }
+        format.html{render template: "/pictures/my_index.html.erb" }
         format.json{render json: @pictures}
       end
     else
