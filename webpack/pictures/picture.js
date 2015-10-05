@@ -21,6 +21,7 @@ $("#cboxInfo").click(function(){
 // Setup action on the button
 $("#loadmore-button").click(function(){
   var promise = loadMoreImagePromise("/pictures/loadAjaxAllImage", window.currentPage + 1);
+  $("#loadmore-button").prop("disabled", true);
   promise.then(function(data){
     window.currentPage += 1;
     for (var i in data.images){
@@ -31,6 +32,7 @@ $("#loadmore-button").click(function(){
         setupColorbox("img");
       });
     }
+    $("#loadmore-button").prop("disabled", false);
   })
   .catch(function(data){
     $("#loadmore-button").hide();
