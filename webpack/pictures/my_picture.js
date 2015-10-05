@@ -1,11 +1,9 @@
 var gridlayout = require('./gridlayout');
 var loadMoreImagePromise = require('./ajaxImage');
 var setupColorbox = require('./colorbox_setup');
+
 var $grid = gridlayout('.grid');
-$.colorbox.remove();
-// Setup action on the colorbox, `I` action
-setupColorbox("img");
-// Setup action on the button
+setupColorbox('img');
 $("#loadmore-button").click(function(){
   var promise = loadMoreImagePromise("/pictures/loadAjaxAllImage", window.currentPage + 1);
   $("#loadmore-button").prop("disabled", true);
