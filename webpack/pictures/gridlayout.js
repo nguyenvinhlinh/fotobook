@@ -8,7 +8,8 @@ module.exports = function(selector){
     columnWidth: '.grid-sizer',
     percentPosition: true
   });
-  $object.imageLoaded().progress(function(){
+  var imgLoad = new imagesLoaded(selector);
+  imgLoad.on('progress', function(imagesLoaded, LoadingImage){
     $object.masonry('layout');
   });
   return $object;

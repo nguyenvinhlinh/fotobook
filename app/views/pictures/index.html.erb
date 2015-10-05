@@ -9,10 +9,14 @@
     </div>
 </div>
 <div class="container">
-    <%= link_to_previous_page @pictures, 'Previous', :params =>{"tags"=>@page_tags},class: "btn btn-primary btn-lg active"%>
-    <%= link_to_next_page @pictures, 'Next', :params => {"tags" => @page_tags},class: "btn btn-primary btn-lg active" %>
+  <%= link_to_previous_page @pictures, 'Previous', :params =>{"tags"=>@page_tags},class: "btn btn-primary btn-lg active"%>
+  <%= link_to_next_page @pictures, 'Next', :params => {"tags" => @page_tags},class: "btn btn-primary btn-lg active" %>
+  <button id="loadmore-button" class="btn btn-primary btn-lg active">Load More Image</button>
 </div>
-
-<div id="app">
-    <%= javascript_include_tag('picture') %>
-</div>
+<script type="text/javascript">
+ window.currentPage = 1;
+ <% unless @page.nil? %>
+ window.currentPage = <%= @page %>
+ <% end %>
+</script>
+<%= javascript_include_tag('picture') %>
