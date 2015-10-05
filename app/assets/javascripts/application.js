@@ -6,4 +6,3 @@
 //= require imagesloaded.pkgd  
 //= require masonry.pkgd
 //= require rails
-//= require_tree .
