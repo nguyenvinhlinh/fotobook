@@ -36,6 +36,5 @@ $("#loadmore-button").click(function(){
   })
   .catch(function(data){
     $("#loadmore-button").hide();
-    alert(data);
   });
 });
