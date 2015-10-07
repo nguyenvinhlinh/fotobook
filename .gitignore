@@ -16,3 +16,5 @@
 !/log/.keep
 /tmp
 /Gemfile.lock
+/app/assets/javascripts/picture.bundle.js
+/app/assets/javascripts/my_picture.bundle.js

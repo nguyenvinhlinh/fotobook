@@ -5,15 +5,16 @@ class PicturesController < ApplicationController
   respond_to :html, :json
   # GET /pictures
   # GET /pictures.json
+  NUMBER_OF_PICTURES_PER_PAGE = 10
   def index
     page_number = (params[:page].nil? || params[:page].to_i < 1) ? 1 : params[:page]
     @page_tags = params[:tags]
     if @page_tags.blank?
-      @pictures = Kaminari.paginate_array(Picture.all.reverse).page(page_number).per(11)
+      @pictures = Kaminari.paginate_array(Picture.all.reverse).page(page_number).per(NUMBER_OF_PICTURES_PER_PAGE)
     else
       _tag_array = stringToArray(@page_tags)
       picture_array = Picture.searchByTagArray(_tag_array)
-      @pictures  = Kaminari.paginate_array(picture_array).page(params[:page]).per(11)
+      @pictures  = Kaminari.paginate_array(picture_array).page(params[:page]).per(NUMBER_OF_PICTURES_PER_PAGE)
     end
     respond_to do |format|
       format.html
@@ -24,14 +25,36 @@ class PicturesController < ApplicationController
   def myIndex
     if user_signed_in? 
       page_number = (params[:page].nil? || params[:page].to_i < 1) ? 1 : params[:page]
-      @pictures = Kaminari.paginate_array(current_user.pictures).page(page_number).per(11)
+      @pictures = Kaminari.paginate_array(current_user.pictures).page(page_number).per(NUMBER_OF_PICTURES_PER_PAGE)
       respond_to do |format|
-        format.html{render template: "/pictures/index.html.erb" }
+        format.html{render template: "/pictures/my_index.html.erb" }
         format.json{render json: @pictures}
       end
     else
       redirect_to new_user_session
     end
+  end
+  
+  def loadAjaxAllImage
+    page_number = params[:page]
+    pictures = Kaminari.paginate_array(Picture.all.reverse).page(page_number).per(NUMBER_OF_PICTURES_PER_PAGE)
+    dom_element = "<img src='%s' href='%s'  hrefto='/pictures/%s' rel='pictures' />"
+    return_html_array = []
+    pictures.each do |p|
+      return_html_array << [p.url, dom_element % [p.url, p.url, p.id]]
+    end
+    json = {
+      images: return_html_array
+    }
+    respond_to do |format|
+      format.json{render json: json}
+    end
+  end
+
+  def loadAjaxImageByTag
+  end
+
+  def loadAjaxImageByUsername
   end
   # GET /pictures/1
   # GET /pictures/1.json

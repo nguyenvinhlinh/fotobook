@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :pictures,  only: [:show, :index, :new] do
     collection do
       get 'upload', to: 'pictures#upload'
+      get 'loadAjaxAllImage', to: 'pictures#loadAjaxAllImage'
     end
   end
   

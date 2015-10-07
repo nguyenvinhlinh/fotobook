@@ -1,0 +1,1 @@
+//= require my_picture.bundle.js
