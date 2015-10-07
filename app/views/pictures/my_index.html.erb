@@ -11,10 +11,11 @@
 <div class="container">
   <button id="loadmore-button" class="btn btn-primary btn-lg active">Load More Image</button>
 </div>
+
 <script type="text/javascript">
- window.currentPage = 1;
+window.currentPage = 1;
  <% unless @page.nil? %>
  window.currentPage = <%= @page %>
  <% end %>
 </script>
-<%= javascript_include_tag('picture') %>
+<%= javascript_include_tag('my_picture') %>
