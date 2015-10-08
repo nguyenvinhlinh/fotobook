@@ -1,0 +1,1 @@
+//= require ./bundles/app_tag_autocomplete.bundle

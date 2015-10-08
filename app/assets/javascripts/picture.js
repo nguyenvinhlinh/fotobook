@@ -1,1 +1,1 @@
-//= require picture.bundle
+//= require ./bundles/picture.bundle
