@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     collection do
       get 'upload', to: 'pictures#upload'
       get 'loadAjaxAllImage', to: 'pictures#loadAjaxAllImage'
+      get 'loadAjaxImageByTag', to: 'pictures#loadAjaxImageByTag'
     end
   end
   
