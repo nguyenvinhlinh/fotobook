@@ -1,1 +1,1 @@
-//= require my_picture.bundle.js
+//= require ./bundles/my_picture.bundle

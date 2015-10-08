@@ -1,6 +1,6 @@
-var gridlayout = require('./gridlayout');
-var loadMoreImagePromise = require('./ajaxImage');
-var setupColorbox = require('./colorbox_setup');
+var gridlayout = require('../modules/gridlayout');
+var loadMoreImagePromise = require('../modules/ajaxImage');
+var setupColorbox = require('../modules/colorbox');
 
 var $grid = gridlayout('.grid');
 setupColorbox('img');
