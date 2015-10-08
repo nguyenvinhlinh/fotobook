@@ -42,7 +42,9 @@ class TagsController < ApplicationController
   def ac_by_tag
     tags = Tag.where("tag LIKE '%#{params[:term].strip}%'")
     respond_to do |f|
-      f.json {render :json => tags.to_json(:only => ["tag"])  }
+      f.json {
+        render :json => tags.map {|t| t.tag}
+      }
     end
   end
   
