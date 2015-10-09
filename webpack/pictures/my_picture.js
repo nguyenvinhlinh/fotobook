@@ -5,7 +5,8 @@ var setupColorbox = require('../modules/colorbox');
 var $grid = gridlayout('.grid');
 setupColorbox('img');
 $("#loadmore-button").click(function(){
-  var promise = loadMoreImagePromise("/pictures/loadAjaxAllImage", window.currentPage + 1);
+  var url_path = "/users/" + window.current_user_id;
+  var promise = loadMoreImagePromise(url_path, window.currentPage + 1);
   $("#loadmore-button").prop("disabled", true);
   promise.then(function(data){
     window.currentPage += 1;

@@ -74,7 +74,7 @@ class PicturesController < ApplicationController
                     .per(NUMBER_OF_PICTURES_PER_PAGE)
     return_html_array = convert_from_picture_to_dom(pictures_page)
     respond_to do |f|
-      j.json {
+      f.json {
         render json:{
                  images: return_html_array
                }
