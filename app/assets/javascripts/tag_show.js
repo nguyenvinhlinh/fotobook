@@ -1,0 +1,1 @@
+//= require ./bundles/tag_show.bundle
