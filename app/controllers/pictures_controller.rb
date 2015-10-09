@@ -38,23 +38,48 @@ class PicturesController < ApplicationController
   def loadAjaxAllImage
     page_number = params[:page]
     pictures = Kaminari.paginate_array(Picture.all.reverse).page(page_number).per(NUMBER_OF_PICTURES_PER_PAGE)
-    dom_element = "<img src='%s' href='%s'  hrefto='/pictures/%s' rel='pictures' />"
-    return_html_array = []
-    pictures.each do |p|
-      return_html_array << [p.url, dom_element % [p.url, p.url, p.id]]
-    end
-    json = {
-      images: return_html_array
-    }
+    return_html_array = convert_from_picture_to_dom(pictures)
     respond_to do |format|
-      format.json{render json: json}
+      format.json{
+        render json: {
+                 images: return_html_array
+               }
+      }
     end
   end
 
   def loadAjaxImageByTag
+    page_number = params[:page]
+    tag_array = stringToArray(params[:tags])
+    pictures = Tag.where(tag: tag_array).map {|t| t.pictures}.flatten
+    pictures_page = Kaminari.paginate_array(pictures)
+                    .page(page_number)
+                    .per(NUMBER_OF_PICTURES_PER_PAGE)
+    return_html_array = convert_from_picture_to_dom(pictures_page)
+    respond_to do |f|
+      f.json {
+        render json: {
+                 images: return_html_array
+               }
+      }
+    end
   end
-
+  
   def loadAjaxImageByUsername
+    page_number = params[:page]
+    user_id = params[:user_id]
+    pictures = User.find(user_id).pictures
+    pictures_page = Kaminari.paginate_array(pictures)
+                    .page(page_number)
+                    .per(NUMBER_OF_PICTURES_PER_PAGE)
+    return_html_array = convert_from_picture_to_dom(pictures_page)
+    respond_to do |f|
+      f.json {
+        render json:{
+                 images: return_html_array
+               }
+      }
+    end
   end
   # GET /pictures/1
   # GET /pictures/1.json
@@ -140,19 +165,28 @@ class PicturesController < ApplicationController
   
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_picture
-      @picture = Picture.find(params[:id])
-    end
+  def set_picture
+    @picture = Picture.find(params[:id])
+  end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def picture_params
-      params.require(:picture).permit(:url)
-    end
+  def picture_params
+    params.require(:picture).permit(:url)
+  end
     
-    def is_belong_to_current_user
-      if not user_signed_in?
-        return false
-      end
-      return current_user == @picture.user
+  def is_belong_to_current_user
+    unless user_signed_in?
+      return false
     end
+    return current_user == @picture.user
+  end
+
+  def convert_from_picture_to_dom (pictures)
+    dom_element = "<img src='%s' href='%s'  hrefto='/pictures/%s' rel='pictures' />"
+    return_html_array = []
+    pictures.each do |p|
+      return_html_array << [p.url, dom_element % [p.url, p.url, p.id]]
+    end
+    return return_html_array
+  end
 end

@@ -17,5 +17,6 @@ window.currentPage = 1;
  <% unless @page.nil? %>
  window.currentPage = <%= @page %>
  <% end %>
+ window.current_user_id = <%= current_user.id %>
 </script>
 <%= javascript_include_tag('my_picture') %>

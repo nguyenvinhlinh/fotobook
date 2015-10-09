@@ -1,9 +1,20 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Tags:</strong> <%= @tag.tag %> <br/>
-  <% @tag.pictures.each do |f| %>
-      <img class="img-responsive" src="<%= f.url%>" />
-  <% end %>
-</p>
-<%= link_to 'Back', {controller: "tags", action: "index"}%>
+<div class="container" >
+  <p >
+    <strong>Tags:</strong> <%= @tag.tag %>
+  </p>
+  <div class="grid">
+    <div class="grid-sizer"></div>
+    <% @pictures.each do |f| %>
+      <div class="grid-item">
+        <img src="<%= f.url %>" href="<%= f.url %>"  hrefto="/pictures/<%= f.id %>" rel="pictures" />
+      </div>
+    <% end %>
+  </div>
+  <button id="loadmore-button" class="btn btn-primary btn-lg active">
+    Load More Image
+  </button>
+</div>
+<script type="text/javascript">
+ window.currentPage = 1;
+</script>
+<%= javascript_include_tag 'tag_show'%>

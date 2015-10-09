@@ -1,6 +1,7 @@
 class TagsController < ApplicationController
   allow_cors :ac_by_tag
   before_action :set_tag, only: [:show, :destroy ]
+  
   load_and_authorize_resource
   def new
     @tag = Tag.new
@@ -37,6 +38,7 @@ class TagsController < ApplicationController
   
   def show
     @tag = Tag.includes(:pictures).find_by(tag:  params[:tag_name])
+    @pictures = @tag.pictures.first(10);
   end
 
   def ac_by_tag

@@ -1,14 +1,13 @@
 var gridlayout = require('../modules/gridlayout');
-var loadMoreImagePromise = require('../modules/ajaxImage');
 var setupColorbox = require('../modules/colorbox');
-
-var $grid = gridlayout('.grid');
-setupColorbox('img');
+var loadMoreImagePromise = require('../modules/ajaxImage');
+$grid = gridlayout(".grid");
+$.colorbox.remove();
+setupColorbox("img");
 $("#loadmore-button").click(function(){
-  var url_path = "/users/" + window.current_user_id;
-  var promise = loadMoreImagePromise(url_path, window.currentPage + 1);
+  var promise = loadMoreImagePromise("/tags/loadAjaxImageByTag", window.currentpage + 1);
   $("#loadmore-button").prop("disabled", true);
-  promise.then(function(data){
+  promise.then(function(){
     window.currentPage += 1;
     for (var i in data.images){
       var dom = $("<div class='grid-item'>" + data.images[i][1] + "</div");
@@ -19,8 +18,10 @@ $("#loadmore-button").click(function(){
       });
     }
     $("#loadmore-button").prop("disabled", false);
+    console.log('dis');
   })
   .catch(function(data){
     $("#loadmore-button").hide();
+    console.log('hide');
   });
 });

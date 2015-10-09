@@ -14,15 +14,19 @@ Rails.application.routes.draw do
   
   resources :tags, param: :tag_name do
     collection do
-      get 'ac_tag', to: 'tags#ac_by_tag' 
+      get 'ac_tag', to: 'tags#ac_by_tag'
+      get 'loadAjaxImageByTag', to: 'pictures#loadAjaxImageByTag'
     end
   end
-
+  
   resource :users do
     resources :pictures, except: [:index] do
       collection do
         get '', to: 'pictures#myIndex'
       end
+    end
+    collection do
+      get ':user_id', to: "pictures#loadAjaxImageByUsername"
     end
   end
 end
