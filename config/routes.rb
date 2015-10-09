@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   
   resources :tags, param: :tag_name do
     collection do
-      get 'ac_tag', to: 'tags#ac_by_tag' 
+      get 'ac_tag', to: 'tags#ac_by_tag'
+      get 'loadAjaxImageByTag', to: 'pictures#loadAjaxImageByTag'
     end
   end
   
