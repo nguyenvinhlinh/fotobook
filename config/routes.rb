@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       end
     end
     collection do
-      get ':user_id', to: "pictures#loadAjaxImageByUsername"
+      get ':user_id/loadAjax', to: "pictures#loadAjaxImageByUsername"
     end
   end
 end
